@@ -1,0 +1,82 @@
+.proof {
+  background: var(--paper);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter) clamp(7rem, 15vh, 12rem);
+}
+
+.proof__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.proof__figure {
+  display: flex;
+  align-items: baseline;
+  margin: clamp(2rem, 5vh, 3.5rem) 0 clamp(2.5rem, 6vh, 4rem);
+  flex-wrap: wrap;
+}
+
+.proof__big {
+  font-size: clamp(6rem, 22vw, 19rem);
+  font-weight: 700;
+  font-variation-settings: "opsz" 96;
+  line-height: 0.85;
+  letter-spacing: -0.055em;
+  font-variant-numeric: tabular-nums;
+}
+
+.proof__pct {
+  font-size: clamp(3rem, 10vw, 8rem);
+  color: var(--cobalt);
+  margin-left: 0.05em;
+}
+
+.proof__label {
+  margin-left: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  line-height: 1.15;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+.proof__label em {
+  color: var(--cobalt);
+}
+
+.proof__facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ink);
+}
+
+.proof__fact {
+  padding: 1.5rem 1.5rem 0 0;
+}
+
+.proof__fact + .proof__fact {
+  border-left: 1px solid var(--rule);
+  padding-left: 1.5rem;
+}
+
+.proof__fact .mono {
+  font-size: 0.6rem;
+  color: var(--cobalt);
+}
+
+.proof__fact p {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .proof__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .proof__fact + .proof__fact {
+    border-left: none;
+    border-top: 1px solid var(--rule);
+    padding-left: 0;
+    margin-top: 1.25rem;
+  }
+}

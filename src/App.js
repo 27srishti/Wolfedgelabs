@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import Topbar from "./components/Topbar";
+import Hero from "./sections/Hero";
+import Manifesto from "./sections/Manifesto";
+import Vault from "./sections/Vault";
+import SpecSheet from "./sections/SpecSheet";
+import Cobalt from "./sections/Cobalt";
+import Canton from "./sections/Canton";
+import Proof from "./sections/Proof";
+import Coda from "./sections/Coda";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Topbar />
+      <main>
+        <Hero />
+        <Manifesto />
+        <Vault />
+        <SpecSheet />
+        <Cobalt />
+        <Canton />
+        <Proof />
+        <Coda />
+      </main>
+    </>
   );
 }
-
-export default App;

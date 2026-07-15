@@ -1,0 +1,150 @@
+.canton {
+  background: var(--paper-2);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+  z-index: 5;
+}
+
+.canton__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.canton__left {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.canton__title {
+  margin: clamp(2rem, 4vh, 3rem) 0 clamp(2rem, 4vh, 3rem);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.canton__em {
+  color: var(--cobalt);
+}
+
+/* ———— Ink privacy figure ———— */
+
+.canton__fig {
+  max-width: 420px;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--paper);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.canton__fig .mono {
+  font-size: 0.58rem;
+  color: var(--ink-3);
+}
+
+.canton__tx {
+  display: flex;
+  gap: 4px;
+  height: 26px;
+}
+
+.canton__tx--s {
+  height: 15px;
+  flex: 1;
+}
+
+.canton__tx span {
+  flex: 1;
+  border-radius: 4px;
+}
+
+.canton__tx .s1 {
+  background: var(--cobalt);
+}
+
+.canton__tx .s2 {
+  background: #7d95ff;
+}
+
+.canton__tx .s3 {
+  background: #b9c7ff;
+}
+
+.canton__tx .void {
+  background: transparent;
+  border: 1px dashed var(--rule);
+}
+
+.canton__view {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.canton__view .mono {
+  width: 3.8rem;
+  flex: none;
+}
+
+.canton__cap {
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule-soft);
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+/* ———— Reasons ———— */
+
+.canton__reasons {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.canton__reason {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.4rem;
+  padding: clamp(1.75rem, 4vh, 2.75rem) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.canton__reason:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.canton__reason-n {
+  color: var(--cobalt);
+  padding-top: 0.5rem;
+}
+
+.canton__reason p {
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  font-weight: 480;
+  color: var(--ink-2);
+  max-width: 26em;
+}
+
+.canton__lead {
+  color: var(--ink);
+  font-size: 1.15em;
+  margin-right: 0.15em;
+}
+
+@media (max-width: 900px) {
+  .canton__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .canton__left {
+    position: static;
+  }
+}

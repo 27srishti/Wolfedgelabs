@@ -1,0 +1,334 @@
+.vault {
+  background: var(--vault);
+  color: var(--bone);
+  padding: clamp(5rem, 10vh, 8rem) var(--gutter) clamp(6rem, 12vh, 9rem);
+  z-index: 2;
+}
+
+.vault__intro {
+  max-width: 1500px;
+  margin: 0 auto clamp(3rem, 7vh, 5rem);
+}
+
+.vault__dex {
+  color: var(--bone-2);
+}
+
+.vault__title {
+  margin: clamp(2rem, 5vh, 3rem) 0 1.5rem;
+  font-size: clamp(2.6rem, 7vw, 6.4rem);
+  font-weight: 620;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.vault__em {
+  color: var(--sky);
+}
+
+.vault__sub {
+  color: var(--bone-2);
+  max-width: 34em;
+}
+
+/* ———— Stacking plates ———— */
+
+.vault__stack {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.vault__slot {
+  height: 108vh;
+}
+
+.vault__slot:last-child {
+  height: auto;
+}
+
+.plate {
+  position: sticky;
+  top: 7vh;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, var(--vault-2), #0a0c10 70%);
+  border: 1px solid var(--vrule);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 -18px 60px rgba(0, 0, 0, 0.55);
+}
+
+.plate__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem clamp(1.5rem, 3vw, 2.75rem);
+  border-bottom: 1px solid var(--vrule);
+}
+
+.plate__sys {
+  color: var(--sky);
+  font-size: 0.64rem;
+}
+
+.plate__brand {
+  color: rgba(242, 239, 233, 0.35);
+  font-size: 0.58rem;
+}
+
+.plate__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 5rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1.5rem, 3vw, 2.75rem);
+  min-height: 0;
+}
+
+.plate--flip .plate__text {
+  order: 2;
+}
+
+.plate--wide .plate__body {
+  grid-template-columns: 1fr;
+  align-content: center;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  text-align: center;
+}
+
+.plate--wide .plate__caps {
+  justify-content: center;
+}
+
+.plate--wide .plate__visual {
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.plate--wide .plate__desc,
+.plate--wide .plate__tag {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.plate__name {
+  font-size: clamp(3.2rem, 8vw, 7.5rem);
+  font-weight: 700;
+  font-variation-settings: "opsz" 96;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.plate__tag {
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 1.1rem 0 1rem;
+}
+
+.plate__tag .serif {
+  color: var(--sky);
+}
+
+.plate__desc {
+  color: var(--bone-2);
+  font-size: 0.96rem;
+  max-width: 30em;
+}
+
+.plate__caps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.8rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-m);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone-2);
+}
+
+.plate__caps span {
+  color: var(--sky);
+  margin-right: 0.35rem;
+}
+
+.plate__visual {
+  min-width: 0;
+  background: rgba(242, 239, 233, 0.03);
+  border: 1px solid var(--vrule);
+  border-radius: 14px;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* ———— Diagram shared ———— */
+
+.dg text {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  fill: var(--bone-2);
+}
+
+.dg__rail {
+  stroke: var(--vrule);
+  stroke-width: 1.2;
+}
+
+.dg__node {
+  fill: #262a33;
+  stroke: var(--bone-2);
+  stroke-width: 1.2;
+}
+
+.dg__node--hot {
+  fill: var(--sky);
+  stroke: var(--sky);
+}
+
+.dg__key line {
+  stroke: var(--vrule);
+  stroke-dasharray: 3 4;
+}
+
+.dg__key rect {
+  fill: rgba(242, 239, 233, 0.05);
+  stroke: var(--vrule);
+}
+
+.dg__key text {
+  font-size: 8.5px;
+}
+
+.dg__cap {
+  font-size: 9px !important;
+  fill: rgba(242, 239, 233, 0.4) !important;
+}
+
+.dg__pulse {
+  fill: var(--sky);
+}
+
+.dg__loop {
+  stroke: var(--vrule);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 6;
+}
+
+/* ———— Order book ———— */
+
+.dg-book {
+  font-family: var(--font-m);
+  font-size: 0.8rem;
+}
+
+.dg-book__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  color: rgba(242, 239, 233, 0.4);
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--vrule);
+  margin-bottom: 0.4rem;
+}
+
+.dg-book__row {
+  position: relative;
+  padding: 0.5rem 0.9rem;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.dg-book__row i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0.14;
+  border-radius: 6px;
+}
+
+.dg-book__row.is-ask {
+  color: #ff9d9d;
+}
+
+.dg-book__row.is-ask i {
+  background: #ff6b6b;
+}
+
+.dg-book__row.is-bid {
+  color: var(--green-lit);
+}
+
+.dg-book__row.is-bid i {
+  background: var(--green-lit);
+}
+
+.dg-book__mid {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  background: rgba(143, 168, 255, 0.12);
+  color: var(--sky);
+  font-size: 0.85rem;
+}
+
+.dg-book__mid span:last-child {
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: rgba(242, 239, 233, 0.45);
+}
+
+/* ———— Responsive ———— */
+
+@media (max-width: 900px) {
+  .vault__slot {
+    height: 112vh;
+  }
+
+  .plate {
+    height: 92vh;
+    top: 4vh;
+  }
+
+  .plate__body {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-content: start;
+    overflow: hidden;
+  }
+
+  .plate--flip .plate__text {
+    order: 0;
+  }
+
+  .plate__name {
+    font-size: clamp(2.6rem, 13vw, 3.6rem);
+  }
+
+  .plate__tag {
+    font-size: 1.1rem;
+    margin: 0.7rem 0 0.6rem;
+  }
+
+  .plate__desc {
+    font-size: 0.88rem;
+  }
+
+  .plate__visual {
+    padding: 1rem;
+  }
+
+  .dg-book {
+    font-size: 0.66rem;
+  }
+}

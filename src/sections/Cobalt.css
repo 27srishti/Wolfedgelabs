@@ -1,0 +1,78 @@
+.cob {
+  background: var(--cobalt);
+  color: var(--paper);
+  padding: clamp(6rem, 13vh, 10rem) 0 clamp(5rem, 10vh, 7rem);
+  z-index: 4;
+  overflow: hidden;
+}
+
+.cob__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.cob__dex {
+  color: rgba(242, 239, 233, 0.75);
+}
+
+.cob__dex-n {
+  color: var(--paper);
+}
+
+.cob__title {
+  margin: clamp(2rem, 5vh, 3rem) 0 1.6rem;
+  font-size: clamp(3rem, 8.5vw, 8rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.042em;
+}
+
+.cob__em {
+  color: #cfdaff;
+}
+
+.cob__note {
+  color: rgba(242, 239, 233, 0.8);
+  max-width: 30em;
+  margin-bottom: clamp(3rem, 7vh, 5rem);
+}
+
+/* ———— Discipline belts ———— */
+
+.cob__belt {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  transform: rotate(-1.2deg) scale(1.02);
+}
+
+.cob__mq span {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+  font-weight: 640;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.cob__mq i {
+  font-style: normal;
+  font-size: 0.5em;
+  margin: 0 1.4rem;
+  opacity: 0.7;
+}
+
+.cob__mq--solid {
+  color: var(--paper);
+}
+
+.cob__mq--ghost span {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242, 239, 233, 0.65);
+}
+
+.cob__mq--ghost i {
+  color: var(--paper);
+  -webkit-text-stroke: 0;
+}

@@ -1,0 +1,151 @@
+.spec {
+  background: var(--paper);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+  z-index: 3;
+}
+
+.spec__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.spec__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+  margin: clamp(2rem, 5vh, 3.5rem) 0 clamp(2.5rem, 6vh, 4rem);
+}
+
+.spec__title {
+  font-size: clamp(2.4rem, 6vw, 5.6rem);
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.038em;
+}
+
+.spec__em {
+  color: var(--cobalt);
+}
+
+.spec__note {
+  max-width: 24em;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  flex: none;
+  width: min(24em, 38%);
+}
+
+/* ———— The table ———— */
+
+.spec__table {
+  border-top: 1px solid var(--ink);
+}
+
+.spec__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(9rem, 0.5fr) 1.4fr 8rem;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.6rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  isolation: isolate;
+  cursor: default;
+}
+
+.spec__row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cobalt);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.34s var(--ease);
+  z-index: -1;
+}
+
+.spec__row:hover::before {
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+.spec__row > * {
+  transition: color 0.2s ease;
+}
+
+.spec__cell-n {
+  color: var(--cobalt);
+  font-size: 0.66rem;
+}
+
+.spec__cell-name {
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+}
+
+.spec__cell-desc {
+  color: var(--ink-2);
+  font-size: 0.94rem;
+  max-width: 38em;
+}
+
+.spec__cell-status {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.62rem;
+  color: var(--green);
+}
+
+.spec__cell-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.spec__row:hover .spec__cell-n,
+.spec__row:hover .spec__cell-name,
+.spec__row:hover .spec__cell-desc {
+  color: var(--paper);
+}
+
+.spec__row:hover .spec__cell-status {
+  color: #b9ffd6;
+}
+
+.spec__row:hover .spec__cell-status i {
+  background: #b9ffd6;
+}
+
+.spec__foot {
+  margin-top: 2.2rem;
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  max-width: 60em;
+  line-height: 2;
+}
+
+@media (max-width: 900px) {
+  .spec__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .spec__note {
+    width: auto;
+  }
+
+  .spec__row {
+    grid-template-columns: 2.5rem 1fr auto;
+    row-gap: 0.4rem;
+  }
+
+  .spec__cell-desc {
+    grid-column: 2 / 4;
+  }
+}

@@ -1,0 +1,44 @@
+.mani {
+  background: var(--paper-2);
+  padding: clamp(6rem, 14vh, 10rem) var(--gutter);
+}
+
+.mani__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.mani__statement {
+  margin: clamp(2.5rem, 6vh, 4rem) 0;
+  font-size: clamp(1.9rem, 4.6vw, 4.2rem);
+  font-weight: 570;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  max-width: 22em;
+}
+
+.mani__em {
+  color: var(--cobalt);
+}
+
+.mani__pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2.8rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+}
+
+.mani__pillar {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-size: 1rem;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+.mani__pillar-n {
+  color: var(--cobalt);
+  font-size: 0.62rem;
+}

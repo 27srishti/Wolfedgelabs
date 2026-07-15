@@ -1,0 +1,87 @@
+/* ———— Marquee ———— */
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: marquee-run linear infinite;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+
+@keyframes marquee-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ———— Seal ———— */
+
+.seal {
+  position: relative;
+  color: var(--ink);
+}
+
+.seal--dark {
+  color: var(--bone);
+}
+
+.seal__ring {
+  position: absolute;
+  inset: 0;
+  animation: seal-spin 26s linear infinite;
+}
+
+.seal__text {
+  font-family: var(--font-m);
+  font-size: 13.5px;
+  letter-spacing: 0.2em;
+  fill: currentColor;
+  opacity: 0.85;
+}
+
+.seal__glyph {
+  position: absolute;
+  inset: 32%;
+  color: var(--cobalt);
+}
+
+.seal--dark .seal__glyph {
+  color: var(--sky);
+}
+
+@keyframes seal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ———— Dot ———— */
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: dot-pulse 2.4s ease-in-out infinite;
+}
+
+.dot--lit {
+  background: var(--green-lit);
+}
+
+@keyframes dot-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
