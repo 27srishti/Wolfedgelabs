@@ -9,7 +9,16 @@
   justify-content: space-between;
   gap: 2rem;
   padding: 1rem var(--gutter);
-  transition: background 0.35s ease, box-shadow 0.35s ease;
+  transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* The "orbit" hero brings its own header — slide the bar out while it's
+   under us so the two don't collide; it returns as soon as you scroll on. */
+.topbar--hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 
 .topbar--solid {
@@ -17,6 +26,36 @@
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--rule);
+}
+
+/* ———— Over a dark section: invert the bar ———— */
+
+.topbar--on-dark {
+  --ink: var(--bone);
+  --ink-2: var(--bone-2);
+  --ink-3: rgba(242, 239, 233, 0.52);
+  --rule: var(--vrule);
+  --cobalt: var(--sky);
+  color: var(--bone);
+}
+
+.topbar--on-dark.topbar--solid {
+  background: rgba(13, 15, 19, 0.82);
+  box-shadow: 0 1px 0 var(--vrule);
+}
+
+.topbar--on-dark .topbar__cta {
+  background: var(--bone);
+  color: var(--vault);
+}
+
+.topbar--on-dark .topbar__cta:hover {
+  background: var(--sky);
+  color: var(--vault);
+}
+
+.topbar--on-dark .topbar__burger span {
+  background: var(--bone);
 }
 
 .topbar__brand {

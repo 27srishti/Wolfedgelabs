@@ -1,7 +1,7 @@
 import Topbar from "./components/Topbar";
 import Hero from "./sections/Hero";
 import Manifesto from "./sections/Manifesto";
-import Vault from "./sections/Vault";
+import Systems from "./sections/Systems";
 import SpecSheet from "./sections/SpecSheet";
 import Cobalt from "./sections/Cobalt";
 import Canton from "./sections/Canton";
@@ -15,7 +15,7 @@ export default function App() {
       <main>
         <Hero />
         <Manifesto />
-        <Vault />
+        <Systems />
         <SpecSheet />
         <Cobalt />
         <Canton />

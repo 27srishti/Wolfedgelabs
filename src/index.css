@@ -58,7 +58,9 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip, not hidden: `hidden` makes body a scroll container, which breaks
+     position:fixed pinning in the Systems horizontal scroll. */
+  overflow-x: clip;
 }
 
 ::selection {
@@ -215,4 +217,28 @@ em.serif {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ————————————————————————————————————————————————
+   Dark zones. Sections opt in with .theme-dark, which re-points the
+   paper tokens at the vault palette — every rule written against
+   --ink / --rule / --paper follows automatically, so sections don't
+   need a parallel set of dark rules.
+   Pair it with data-theme="dark" so the Topbar can invert over it.
+   ———————————————————————————————————————————————— */
+
+.theme-dark {
+  --paper: var(--vault);
+  --paper-2: var(--vault-2);
+  --ink: var(--bone);
+  --ink-2: var(--bone-2);
+  --ink-3: rgba(242, 239, 233, 0.52);
+  --rule: var(--vrule);
+  --rule-soft: rgba(242, 239, 233, 0.07);
+  /* #2743ff is near-invisible on near-black; step up to the lit blue. */
+  --cobalt: var(--sky);
+  --cobalt-deep: #6b83ff;
+
+  background: var(--vault);
+  color: var(--bone);
 }

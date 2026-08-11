@@ -35,8 +35,8 @@
   font-size: clamp(3.6rem, 12vw, 11rem);
   font-weight: 680;
   font-variation-settings: "opsz" 96;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  line-height: 0.86;
+  letter-spacing: -0.012em;
 }
 
 .coda__em {

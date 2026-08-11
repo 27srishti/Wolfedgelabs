@@ -1,0 +1,80 @@
+/* ———— Coloured network logo marquee ———— */
+
+.net {
+  width: 100%;
+  overflow: hidden;
+  /* fade both edges so logos dissolve into the band */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.net__row {
+  width: 100%;
+}
+
+.net .marquee__group {
+  gap: clamp(2.25rem, 4.5vw, 4rem);
+  padding-right: clamp(2.25rem, 4.5vw, 4rem);
+}
+
+.net__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(242, 239, 233, 0.55); /* bone, tuned to the hero */
+  transition: color 0.3s var(--ease);
+}
+
+.net__row:hover .net__item {
+  color: rgba(242, 239, 233, 0.3);
+}
+
+.net__row .net__item:hover {
+  color: var(--bone);
+}
+
+.net__mark {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: 0 0 auto;
+  color: var(--sky); /* one cool accent, matching the shine on "market." */
+}
+
+.net__item:hover .net__mark {
+  color: var(--bone);
+}
+
+.net__name {
+  font-family: var(--font-g);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: currentColor;
+}
+
+.net__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .net__name {
+    font-size: 1rem;
+  }
+  .net__mark {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .net .marquee__track {
+    animation: none;
+    transform: none;
+  }
+}

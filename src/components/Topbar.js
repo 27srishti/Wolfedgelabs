@@ -11,17 +11,47 @@ const LINKS = [
 
 export default function Topbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(true);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 10);
+    // The bar is fixed, so "which section am I over" is a hit test at the
+    // bar's own height against whatever sections declare themselves dark.
+    const PROBE_Y = 34;
+    const covers = (el) => {
+      const r = el.getBoundingClientRect();
+      return r.top <= PROBE_Y && r.bottom >= PROBE_Y;
+    };
+    const on = () => {
+      setScrolled(window.scrollY > 10);
+      setOnDark([...document.querySelectorAll('[data-theme="dark"]')].some(covers));
+      // Defense ships its own header, so avoid stacking two nav bars.
+      const ownNav = document.querySelector(".hero--defense");
+      setHidden(!!ownNav && covers(ownNav));
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
+    window.addEventListener("resize", on);
+    // The hero swaps variants (and with them its theme + own-header
+    // status) via a button click, which fires neither scroll nor resize —
+    // watch its attributes directly so every swap re-runs the hit tests.
+    const hero = document.getElementById("hero");
+    const mo = new MutationObserver(on);
+    if (hero) {
+      mo.observe(hero, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    }
+    return () => {
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+      mo.disconnect();
+    };
   }, []);
 
   return (
-    <header className={`topbar ${scrolled ? "topbar--solid" : ""}`}>
+    <header
+      className={`topbar ${scrolled ? "topbar--solid" : ""} ${onDark ? "topbar--on-dark" : ""} ${hidden ? "topbar--hidden" : ""}`}
+    >
       <a href="#hero" className="topbar__brand mono">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path

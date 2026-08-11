@@ -12,7 +12,7 @@ export default function Coda() {
   const rise = useRiseGroup(0.09);
 
   return (
-    <section className="coda sheet" id="contact" ref={rise}>
+    <section className="coda sheet" id="contact" data-theme="dark" ref={rise}>
       <div className="coda__inner">
         <p className="mono coda__hail" data-rise>
           <i className="coda__dot" aria-hidden="true" /> Accepting institutional

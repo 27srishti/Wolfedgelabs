@@ -13,7 +13,7 @@ export default function Manifesto() {
   const rise = useRiseGroup();
 
   return (
-    <section className="mani" id="who" ref={rise}>
+    <section className="mani theme-dark" id="who" data-theme="dark" ref={rise}>
       <div className="mani__inner">
         <p className="dex" data-rise>
           <span className="dex__n">( 01 )</span> Who we are
