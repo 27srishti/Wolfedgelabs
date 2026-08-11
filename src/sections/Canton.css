@@ -30,10 +30,61 @@
   color: var(--cobalt);
 }
 
-/* ———— Ink privacy figure ———— */
+/* ———— The index of reasons ———— */
+
+.canton__index {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.canton__idx {
+  position: relative;
+  padding: 0.55rem 0;
+  font-family: var(--font-g);
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  font-weight: 560;
+  letter-spacing: -0.015em;
+  color: var(--ink-3);
+  transition: color 0.35s var(--ease), transform 0.35s var(--ease);
+  text-align: left;
+}
+
+.canton__idx:hover {
+  color: var(--ink);
+}
+
+.canton__idx.on {
+  color: var(--ink);
+  transform: translateX(0.9rem);
+}
+
+.canton__idx.on::before {
+  content: "";
+  position: absolute;
+  left: -0.9rem;
+  top: 50%;
+  width: 0.45rem;
+  height: 2px;
+  background: var(--cobalt);
+}
+
+.canton__idx:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 4px;
+}
+
+/* ———— The transaction figure, re-lit per theme ———— */
+
+.canton__right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
 
 .canton__fig {
-  max-width: 420px;
+  margin: 0;
+  max-width: 460px;
   border: 1px solid var(--rule);
   border-radius: 14px;
   background: var(--paper);
@@ -41,6 +92,18 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  animation: canton-fig-in 0.5s var(--ease);
+}
+
+@keyframes canton-fig-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .canton__fig .mono {
@@ -49,6 +112,7 @@
 }
 
 .canton__tx {
+  position: relative;
   display: flex;
   gap: 4px;
   height: 26px;
@@ -62,23 +126,21 @@
 .canton__tx span {
   flex: 1;
   border-radius: 4px;
+  transition: opacity 0.45s var(--ease), background 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
 }
 
-.canton__tx .s1 {
-  background: var(--cobalt);
-}
+.canton__tx .s1 { background: var(--cobalt); }
+.canton__tx .s2 { background: #7d95ff; }
+.canton__tx .s3 { background: #b9c7ff; }
 
-.canton__tx .s2 {
-  background: #7d95ff;
-}
-
-.canton__tx .s3 {
-  background: #b9c7ff;
-}
-
-.canton__tx .void {
-  background: transparent;
-  border: 1px dashed var(--rule);
+.canton__tx-flash {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  pointer-events: none;
+  transition: border-color 0.45s var(--ease);
 }
 
 .canton__view {
@@ -99,38 +161,70 @@
   letter-spacing: 0.2em;
 }
 
-/* ———— Reasons ———— */
-
-.canton__reasons {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+/* — default (privacy): parties see only their own slice — */
+.canton__fig--privacy .seg.other {
+  background: transparent;
+  border: 1px dashed var(--rule);
 }
 
-.canton__reason {
-  display: grid;
-  grid-template-columns: 3rem 1fr;
-  gap: 1.4rem;
-  padding: clamp(1.75rem, 4vh, 2.75rem) 0;
-  border-top: 1px solid var(--rule);
+/* — settlement: every view fully lit, atomic ring around the tx — */
+.canton__fig--settlement .canton__tx-flash {
+  border-color: var(--cobalt);
+}
+.canton__fig--settlement .seg {
+  opacity: 1;
 }
 
-.canton__reason:last-child {
-  border-bottom: 1px solid var(--rule);
+/* — workflows: obligations light in sequence — */
+.canton__fig--workflows .seg {
+  opacity: 0.25;
+}
+.canton__fig--workflows .seg.s1 { animation: wf-step 2.7s linear infinite; }
+.canton__fig--workflows .seg.s2 { animation: wf-step 2.7s linear 0.9s infinite; }
+.canton__fig--workflows .seg.s3 { animation: wf-step 2.7s linear 1.8s infinite; }
+
+@keyframes wf-step {
+  0% { opacity: 0.25; }
+  12% { opacity: 1; }
+  45% { opacity: 1; }
+  60% { opacity: 0.25; }
+  100% { opacity: 0.25; }
 }
 
-.canton__reason-n {
-  color: var(--cobalt);
-  padding-top: 0.5rem;
+/* — assets: rules travel with the asset (striped permission bands) — */
+.canton__fig--assets .seg.other {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--rule) 0 3px,
+    transparent 3px 7px
+  );
 }
 
-.canton__reason p {
+/* — verifiability: everything present but dimmed to a proof outline — */
+.canton__fig--verifiability .seg {
+  opacity: 0.28;
+  box-shadow: inset 0 0 0 1px var(--cobalt);
+}
+.canton__fig--verifiability .seg.own {
+  opacity: 1;
+}
+
+/* — capital: slices distributed across every party — */
+.canton__fig--capital .seg {
+  opacity: 0.85;
+}
+.canton__fig--capital .seg.other {
+  opacity: 0.35;
+}
+
+.canton__reading {
+  margin: 0;
+  max-width: 30rem;
   font-size: clamp(1.15rem, 2vw, 1.6rem);
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: -0.015em;
   font-weight: 480;
   color: var(--ink-2);
-  max-width: 26em;
 }
 
 .canton__lead {
@@ -146,5 +240,40 @@
 
   .canton__left {
     position: static;
+  }
+
+  .canton__index {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.4rem;
+  }
+
+  .canton__idx {
+    font-size: 1.05rem;
+  }
+
+  .canton__idx.on {
+    transform: none;
+  }
+
+  .canton__idx.on::before {
+    left: 50%;
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canton__fig {
+    animation: none;
+  }
+
+  .canton__fig--workflows .seg.s1,
+  .canton__fig--workflows .seg.s2,
+  .canton__fig--workflows .seg.s3 {
+    animation: none;
+    opacity: 1;
   }
 }

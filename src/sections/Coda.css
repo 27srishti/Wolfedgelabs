@@ -22,12 +22,10 @@
   font-size: 0.62rem;
 }
 
-.coda__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green-lit);
-  animation: dot-pulse 2.4s ease-in-out infinite;
+.coda__meta {
+  margin-top: clamp(2rem, 5vh, 3.2rem);
+  color: rgba(242, 239, 233, 0.45);
+  font-size: 0.62rem;
 }
 
 .coda__title {
@@ -66,21 +64,6 @@
 
 .coda__mail:hover .coda__mail-arrow {
   transform: translate(4px, -4px);
-}
-
-.coda__founder {
-  margin-top: clamp(3rem, 7vh, 5rem);
-  max-width: 34em;
-  color: var(--bone-2);
-  font-size: 0.92rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.coda__founder .mono {
-  color: var(--sky);
-  font-size: 0.6rem;
 }
 
 /* ———— Footer ———— */

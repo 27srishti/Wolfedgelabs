@@ -12,16 +12,8 @@
   padding: 0 var(--gutter);
 }
 
-.cob__dex {
-  color: rgba(242, 239, 233, 0.75);
-}
-
-.cob__dex-n {
-  color: var(--paper);
-}
-
 .cob__title {
-  margin: clamp(2rem, 5vh, 3rem) 0 1.6rem;
+  margin: 0 0 1.6rem;
   font-size: clamp(3rem, 8.5vw, 8rem);
   font-weight: 650;
   line-height: 0.9;
@@ -38,12 +30,74 @@
   margin-bottom: clamp(3rem, 7vh, 5rem);
 }
 
-/* ———— Discipline belts ———— */
+/* ———— The operating loop ———— */
 
-.cob__belt {
+.cob__loop {
+  list-style: none;
+  margin: 0 0 clamp(3rem, 8vh, 5.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.4rem, 3vw, 3rem);
+}
+
+.cob__step {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+}
+
+.cob__step-track {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: rgba(242, 239, 233, 0.25);
+  margin-bottom: 1.1rem;
+  overflow: hidden;
+}
+
+.cob__step-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--paper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s var(--ease);
+}
+
+.cob__step.in .cob__step-fill,
+.rise.in .cob__step-fill {
+  transform: scaleX(1);
+}
+
+.cob__step-verb {
+  font-size: clamp(1.5rem, 2.6vw, 2.4rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.cob__step-line {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(242, 239, 233, 0.72);
+  max-width: 16rem;
+}
+
+.cob__close {
+  margin: 0 0 clamp(2.5rem, 6vh, 4rem);
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  color: var(--paper);
+}
+
+.cob__close .serif {
+  color: #cfdaff;
+}
+
+/* ———— Discipline belt ———— */
+
+.cob__belt {
   transform: rotate(-1.2deg) scale(1.02);
 }
 
@@ -63,10 +117,6 @@
   opacity: 0.7;
 }
 
-.cob__mq--solid {
-  color: var(--paper);
-}
-
 .cob__mq--ghost span {
   color: transparent;
   -webkit-text-stroke: 1px rgba(242, 239, 233, 0.65);
@@ -75,4 +125,19 @@
 .cob__mq--ghost i {
   color: var(--paper);
   -webkit-text-stroke: 0;
+}
+
+/* ———— Collapse ———— */
+
+@media (max-width: 899px) {
+  .cob__loop {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .cob__loop {
+    grid-template-columns: 1fr;
+  }
 }

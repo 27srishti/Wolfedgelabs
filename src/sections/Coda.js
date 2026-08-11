@@ -3,9 +3,18 @@ import { useRiseGroup } from "../hooks/useInView";
 import "./Coda.css";
 
 const COLS = [
-  ["Products", [["Calden", "#calden"], ["Cardiv", "#cardiv"], ["Nexus", "#nexus"]]],
-  ["Company", [["Infrastructure", "#infrastructure"], ["Engineering", "#engineering"], ["Why Canton", "#canton"]]],
-  ["Legal", [["Privacy Policy", "#hero"], ["Terms of Service", "#hero"]]],
+  ["Products", [["Calden", "#products"], ["Cardiv", "#products"], ["Nexus", "#products"]]],
+  [
+    "Services",
+    [
+      ["Validators", "#infrastructure"],
+      ["RPC", "#infrastructure"],
+      ["Nodes", "#infrastructure"],
+      ["DevOps", "#engineering"],
+      ["Technical assessments", "#infrastructure"],
+    ],
+  ],
+  ["Company", [["Who we are", "#who"], ["Why Canton", "#canton"], ["Contact", "#contact"]]],
 ];
 
 export default function Coda() {
@@ -15,8 +24,7 @@ export default function Coda() {
     <section className="coda sheet" id="contact" data-theme="dark" ref={rise}>
       <div className="coda__inner">
         <p className="mono coda__hail" data-rise>
-          <i className="coda__dot" aria-hidden="true" /> Accepting institutional
-          workloads
+          Accepting institutional workloads
         </p>
 
         <Lines
@@ -29,21 +37,15 @@ export default function Coda() {
           ]}
         />
 
-        <a
-          href="mailto:contact@wolfedgelabs.com"
-          className="coda__mail"
-          data-rise
-        >
-          contact@wolfedgelabs.com
+        <a href="mailto:hello@wolfedgelabs.com" className="coda__mail" data-rise>
+          hello@wolfedgelabs.com
           <span className="coda__mail-arrow" aria-hidden="true">
             ↗
           </span>
         </a>
 
-        <p className="coda__founder" data-rise>
-          <span className="mono">Founder</span>
-          Mohak Agarwal — validators, staking systems and institutional
-          infrastructure, operated across networks for years.
+        <p className="coda__meta mono" data-rise>
+          Singapore · Replies within 24 to 48 hours
         </p>
       </div>
 
@@ -52,8 +54,8 @@ export default function Coda() {
           <div className="coda__footer-brand">
             <span className="mono">WolfEdge Labs</span>
             <p>
-              Critical infrastructure for institutional blockchain. Building
-              on Canton, operating in production.
+              An infrastructure and product lab building blockchain systems
+              and Canton-native financial products.
             </p>
           </div>
           {COLS.map(([title, links]) => (
@@ -70,7 +72,7 @@ export default function Coda() {
           ))}
         </div>
         <div className="coda__legal mono">
-          <span>© 2026 WolfEdge Labs</span>
+          <span>© 2026 Liquid Labs FZCO. WolfEdge Labs.</span>
           <a href="#hero">Back to top ↑</a>
         </div>
       </footer>

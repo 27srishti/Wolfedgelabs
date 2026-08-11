@@ -1,0 +1,80 @@
+/* ————————————————————————————————————————————————
+   FOUNDER — dark editorial profile.
+   ———————————————————————————————————————————————— */
+
+.fdr {
+  background: var(--vault-2);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+  border-top: 1px solid var(--vrule);
+}
+
+.fdr__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: start;
+}
+
+.fdr__mark {
+  display: grid;
+  place-items: center;
+  width: clamp(96px, 12vw, 150px);
+  aspect-ratio: 1;
+  border: 1px solid var(--vrule);
+  border-radius: 50%;
+  font-family: var(--font-s);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--sky);
+}
+
+.fdr__statement {
+  margin: 0 0 1.8rem;
+  font-size: clamp(2.6rem, 5.6vw, 5.2rem);
+  font-weight: 620;
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+}
+
+.fdr__statement .serif {
+  color: var(--sky);
+}
+
+.fdr__bio {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--bone-2);
+}
+
+.fdr__sig {
+  margin: 2.2rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fdr__name {
+  font-size: 1.15rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+
+.fdr__role {
+  color: var(--sky);
+}
+
+.fdr__focus {
+  margin: 1.8rem 0 0;
+  color: rgba(242, 239, 233, 0.4);
+}
+
+@media (max-width: 720px) {
+  .fdr__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,154 @@
+/* ————————————————————————————————————————————————
+   OPERATIONS — the engine room.
+   Paper world. Sticky argument left, machinery right.
+   ———————————————————————————————————————————————— */
+
+.ops {
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(6rem, 14vh, 10rem) var(--gutter) clamp(5rem, 12vh, 9rem);
+}
+
+.ops__inner {
+  display: grid;
+  grid-template-columns: minmax(300px, 5fr) 7fr;
+  gap: clamp(2.5rem, 6vw, 6.5rem);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ———— Left rail ———— */
+
+.ops__rail {
+  position: sticky;
+  top: 7rem;
+  align-self: start;
+}
+
+.ops__title {
+  margin: 1.6rem 0 0;
+  font-size: clamp(2.4rem, 4.4vw, 4.2rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.ops__em {
+  color: var(--cobalt);
+}
+
+.ops__note {
+  margin: 1.5rem 0 0;
+  max-width: 26rem;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.ops__services {
+  margin-top: clamp(2.4rem, 6vh, 4rem);
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  max-width: 26rem;
+}
+
+.ops__services p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.ops__services-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.2rem;
+}
+
+.ops__services-link:hover {
+  color: var(--cobalt);
+  border-color: var(--cobalt);
+}
+
+/* ———— The floor of stations ———— */
+
+.ops__floor {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.6rem, 7vh, 4.6rem);
+}
+
+.ops__station {
+  position: relative;
+  max-width: 30rem;
+}
+
+/* stations sit at staggered depths across the floor: 0, far, mid, far, near, mid */
+.ops__station:nth-child(1) { margin-left: 0; }
+.ops__station:nth-child(2) { margin-left: min(16vw, 190px); }
+.ops__station:nth-child(3) { margin-left: min(6vw, 70px); }
+.ops__station:nth-child(4) { margin-left: min(20vw, 240px); }
+.ops__station:nth-child(5) { margin-left: min(2vw, 24px); }
+.ops__station:nth-child(6) { margin-left: min(12vw, 150px); }
+
+.ops__station-glyph {
+  display: inline-flex;
+  color: var(--cobalt);
+  margin-bottom: 0.7rem;
+}
+
+.ops__station-name {
+  margin: 0;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ops__station-detail {
+  margin: 0.7rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ops__station-readout {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--ink-3);
+}
+
+.ops__station-readout::before {
+  content: "[ ";
+  color: var(--cobalt);
+}
+
+.ops__station-readout::after {
+  content: " ]";
+  color: var(--cobalt);
+}
+
+/* ———— Collapse ———— */
+
+@media (max-width: 899px) {
+  .ops__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .ops__rail {
+    position: static;
+  }
+
+  .ops__floor {
+    gap: 2.4rem;
+  }
+
+  .ops__station,
+  .ops__station:nth-child(n) {
+    margin-left: 0;
+  }
+}

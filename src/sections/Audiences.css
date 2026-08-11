@@ -1,0 +1,94 @@
+/* ————————————————————————————————————————————————
+   BUILT FOR — dark typographic switchboard.
+   Opens the dark tail of the page.
+   ———————————————————————————————————————————————— */
+
+.aud {
+  background: var(--vault);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+}
+
+.aud__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.aud__kicker {
+  color: var(--sky);
+  margin-bottom: clamp(2rem, 5vh, 3.4rem);
+}
+
+.aud__board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.aud__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aud__name {
+  display: block;
+  padding: 0.32rem 0;
+  font-family: var(--font-g);
+  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242, 239, 233, 0.34);
+  text-align: left;
+  transition: color 0.35s var(--ease), -webkit-text-stroke-color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+.aud__name:hover {
+  -webkit-text-stroke-color: rgba(242, 239, 233, 0.7);
+}
+
+.aud__name.on {
+  color: var(--bone);
+  -webkit-text-stroke-color: transparent;
+  transform: translateX(1.2rem);
+}
+
+.aud__name:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 4px;
+}
+
+.aud__reading {
+  position: sticky;
+  top: 40vh;
+  margin: 0.5rem 0 0;
+  max-width: 24rem;
+  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
+  line-height: 1.5;
+  color: var(--bone-2);
+}
+
+.aud__reading-n {
+  display: block;
+  color: var(--sky);
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 899px) {
+  .aud__board {
+    grid-template-columns: 1fr;
+  }
+
+  .aud__reading {
+    position: static;
+    order: 2;
+    min-height: 5em;
+  }
+
+  .aud__name.on {
+    transform: translateX(0.6rem);
+  }
+}

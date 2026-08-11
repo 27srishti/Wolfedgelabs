@@ -2,39 +2,139 @@ import { useEffect, useRef } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useInView } from "../hooks/useInView";
 import "./Systems.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ————————————————————————————————————————————————
+   THE PRODUCT LAB — pinned horizontal gallery.
+   Each product carries one working diagram of its core idea:
+   Calden  = a signature passing through permission layers
+   Cardiv  = order flow converging to a match, then settling
+   Nexus   = idle CC transformed into productive weCC
+   ———————————————————————————————————————————————— */
+
+function CaldenViz() {
+  const steps = ["User", "Identity", "Permission", "Signing", "Canton"];
+  return (
+    <figure className="viz viz--calden" aria-label="A transaction request passing through identity, permission and signing layers before reaching Canton.">
+      <div className="viz-chain">
+        {steps.map((s, i) => (
+          <div className="viz-chain__step" key={s} style={{ "--i": i }}>
+            <span className="viz-chain__cell">{s}</span>
+            {i < steps.length - 1 && <span className="viz-chain__wire" aria-hidden="true" />}
+          </div>
+        ))}
+        <span className="viz-chain__token" aria-hidden="true" />
+      </div>
+      <figcaption className="viz__cap">One signature, four checkpoints</figcaption>
+    </figure>
+  );
+}
+
+function CardivViz() {
+  const bids = [82, 64, 47, 31];
+  const asks = [78, 58, 42, 26];
+  return (
+    <figure className="viz viz--cardiv" aria-label="Buy and sell orders converging on a match price, settling atomically.">
+      <div className="viz-book">
+        <div className="viz-book__side viz-book__side--bid" aria-hidden="true">
+          {bids.map((w, i) => (
+            <span key={i} style={{ "--w": `${w}%`, "--i": i }} />
+          ))}
+        </div>
+        <span className="viz-book__spine" aria-hidden="true">
+          <i className="viz-book__match" />
+        </span>
+        <div className="viz-book__side viz-book__side--ask" aria-hidden="true">
+          {asks.map((w, i) => (
+            <span key={i} style={{ "--w": `${w}%`, "--i": i }} />
+          ))}
+        </div>
+      </div>
+      <figcaption className="viz__cap">
+        <span>Bids</span>
+        <span className="viz__cap-mid">Matched on-chain</span>
+        <span>Asks</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+function NexusViz() {
+  return (
+    <figure className="viz viz--nexus" aria-label="Canton Coin deposited into Nexus becomes weCC and flows out to Featured Apps.">
+      <svg viewBox="0 0 560 240" className="viz-flow" aria-hidden="true">
+        {/* idle CC entering */}
+        <path className="viz-flow__in" d="M 20 120 H 210" />
+        {/* the three outbound streams */}
+        <path className="viz-flow__out" d="M 350 120 C 430 120, 460 48, 540 48" />
+        <path className="viz-flow__out" d="M 350 120 H 540" />
+        <path className="viz-flow__out" d="M 350 120 C 430 120, 460 192, 540 192" />
+        {/* travelling particles */}
+        <circle className="viz-flow__dot viz-flow__dot--in" r="4" />
+        <circle className="viz-flow__dot viz-flow__dot--a" r="4" />
+        <circle className="viz-flow__dot viz-flow__dot--b" r="4" />
+        <circle className="viz-flow__dot viz-flow__dot--c" r="4" />
+      </svg>
+      <span className="viz-flow__label viz-flow__label--cc mono">CC</span>
+      <span className="viz-flow__gate mono">Nexus</span>
+      <span className="viz-flow__label viz-flow__label--wecc mono">weCC</span>
+      <span className="viz-flow__label viz-flow__label--apps mono">Featured Apps</span>
+      <figcaption className="viz__cap">Idle capital, put to work</figcaption>
+    </figure>
+  );
+}
+
+const VIZ = { calden: CaldenViz, cardiv: CardivViz, nexus: NexusViz };
+
 const products = [
   {
     name: "Calden",
-    index: "01",
     role: "Institutional wallet",
     title: "Control every signature.",
     body: "Enterprise authentication and programmable permissions, with custody kept exactly where it belongs.",
-    metric: "SELF-CUSTODY",
     visual: "calden",
   },
   {
     name: "Cardiv",
-    index: "02",
     role: "Canton-native market",
     title: "Trade and settle as one.",
-    body: "Professional order flow meets deterministic, non-custodial settlement on Canton.",
-    metric: "ATOMIC / D+0",
+    body: "A fully on-chain limit order book: professional order flow with deterministic, non-custodial settlement.",
     visual: "cardiv",
   },
   {
     name: "Nexus",
-    index: "03",
     role: "Liquid staking",
     title: "Capital stays in motion.",
-    body: "Participate in network security while retaining a liquid, productive position.",
-    metric: "UTILITY / 24:7",
+    body: "Deposit CC, receive weCC, participate across Featured Apps. Rewards are variable, never guaranteed.",
     visual: "nexus",
   },
 ];
+
+function Panel({ product, index }) {
+  const ref = useInView(0.4);
+  const Viz = VIZ[product.visual];
+  return (
+    <article className="sys-panel" ref={ref}>
+      <div className="sys-panel__meta">
+        <span>
+          {String(index + 1).padStart(2, "0")} / 03
+        </span>
+        <span>{product.role}</span>
+      </div>
+      <Viz />
+      <div className="sys-panel__content">
+        <h3 className="sys-panel__title">{product.title}</h3>
+        <p className="sys-panel__body">{product.body}</p>
+        <a className="sys-panel__link" href="mailto:hello@wolfedgelabs.com">
+          Explore {product.name} <ArrowUpRight size={15} weight="bold" />
+        </a>
+      </div>
+    </article>
+  );
+}
 
 export default function Systems() {
   const root = useRef(null);
@@ -46,10 +146,8 @@ export default function Systems() {
         const section = root.current;
         const track = section.querySelector(".sys-track");
         const travel = () => track.scrollWidth - window.innerWidth;
-        // LEAD holds the "Three products. One economy." intro still on screen
-        // once the section pins, so it reads before the track starts moving.
-        // HOLD does the same for the last panel, and absorbs the scrub lag so
-        // it doesn't slide away the instant the section unpins.
+        // LEAD holds the intro still once pinned so it reads before the track
+        // moves; HOLD keeps the last panel from sliding away at unpin.
         const LEAD = 0.3;
         const HOLD = 0.22;
 
@@ -69,7 +167,6 @@ export default function Systems() {
       });
     }, root);
 
-    // Web fonts change the measured track width; re-measure once they land.
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     }
@@ -84,31 +181,19 @@ export default function Systems() {
     <section id="products" className="sys-scroll" ref={root}>
       <div className="sys-track">
         <div className="sys-intro">
-          <span className="sys-intro__kicker">[ SYSTEMS WE BUILD ]</span>
+          <span className="sys-intro__kicker">[ THE PRODUCT LAB ]</span>
           <h2 className="sys-intro__title">
             Three products.
             <br />
             One economy.
           </h2>
           <p className="sys-intro__sub">
-            Purpose-built products for custody, markets and capital formation on Canton.
+            Purpose-built systems for custody, markets and capital formation on
+            Canton. Built and operated by WolfEdge.
           </p>
         </div>
-        {products.map((product) => (
-          <article className="sys-panel" key={product.name}>
-            <div className="sys-panel__meta">
-              <span>{product.index} / 03</span>
-              <span>{product.role}</span>
-            </div>
-            <div className="sys-panel__content">
-              <p className="sys-panel__metric">{product.metric}</p>
-              <h3 className="sys-panel__title">{product.title}</h3>
-              <p className="sys-panel__body">{product.body}</p>
-              <a className="sys-panel__link" href="mailto:contact@wolfedgelabs.com">
-                Explore {product.name} <ArrowUpRight size={15} weight="bold" />
-              </a>
-            </div>
-          </article>
+        {products.map((product, i) => (
+          <Panel product={product} index={i} key={product.name} />
         ))}
       </div>
     </section>

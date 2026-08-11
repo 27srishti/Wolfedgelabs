@@ -1,0 +1,191 @@
+/* ————————————————————————————————————————————————
+   EVOLUTION — dark vertical journey.
+   The glyph earns a stage per chapter.
+   ———————————————————————————————————————————————— */
+
+.jny {
+  background: var(--vault);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+}
+
+.jny__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.jny__title {
+  margin: 0 0 clamp(3rem, 8vh, 5.5rem);
+  font-size: clamp(2.6rem, 5.4vw, 5rem);
+  font-weight: 620;
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+}
+
+.jny__em {
+  color: var(--sky);
+}
+
+.jny__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  align-items: start;
+}
+
+/* ———— The growing system ———— */
+
+.jny__stagewrap {
+  position: sticky;
+  top: 16vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.jny__glyph {
+  width: min(380px, 70vw);
+  color: var(--sky);
+}
+
+.jny__stage-era {
+  color: var(--sky);
+  font-size: 0.8rem;
+}
+
+.jny__node,
+.jny__sat,
+.jny__edge,
+.jny__spoke,
+.jny__rail {
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.jny__node {
+  fill: var(--bone);
+  opacity: 0;
+  transform-origin: center;
+  transform: scale(0.4);
+}
+
+.jny__node--core {
+  fill: var(--sky);
+}
+
+.jny__edge {
+  stroke: rgba(143, 168, 255, 0.4);
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.jny__sat {
+  fill: none;
+  stroke: var(--sky);
+  stroke-width: 1.4;
+  opacity: 0;
+  transform-origin: center;
+  transform: scale(0.4);
+}
+
+.jny__spoke {
+  stroke: rgba(143, 168, 255, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0;
+}
+
+.jny__rail {
+  fill: none;
+  stroke: rgba(242, 239, 233, 0.22);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+  opacity: 0;
+}
+
+/* stage 0: the first node */
+.jny__glyph--s0 .jny__node--core { opacity: 1; transform: scale(1); }
+
+/* stage 1: the cluster */
+.jny__glyph--s1 .jny__node { opacity: 1; transform: scale(1); }
+.jny__glyph--s1 .jny__edge { opacity: 1; }
+
+/* stage 2: products join */
+.jny__glyph--s2 .jny__node { opacity: 1; transform: scale(1); }
+.jny__glyph--s2 .jny__edge { opacity: 1; }
+.jny__glyph--s2 .jny__sat { opacity: 1; transform: scale(1); }
+.jny__glyph--s2 .jny__spoke { opacity: 1; }
+
+/* stage 3: the rail closes around everything */
+.jny__glyph--s3 .jny__node { opacity: 1; transform: scale(1); }
+.jny__glyph--s3 .jny__edge { opacity: 1; }
+.jny__glyph--s3 .jny__sat { opacity: 1; transform: scale(1); }
+.jny__glyph--s3 .jny__spoke { opacity: 1; }
+.jny__glyph--s3 .jny__rail { opacity: 1; }
+
+/* ———— Chapters ———— */
+
+.jny__chapters {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 16vh, 9rem);
+  padding: clamp(2rem, 8vh, 5rem) 0 clamp(4rem, 14vh, 8rem);
+}
+
+.jny__chapter {
+  opacity: 0.34;
+  transition: opacity 0.5s var(--ease);
+}
+
+.jny__chapter.on {
+  opacity: 1;
+}
+
+.jny__era {
+  color: var(--sky);
+}
+
+.jny__chapter-title {
+  margin: 0.7rem 0 0;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.jny__chapter-body {
+  margin: 0.9rem 0 0;
+  max-width: 26rem;
+  color: var(--bone-2);
+  line-height: 1.6;
+}
+
+/* ———— Collapse ———— */
+
+@media (max-width: 899px) {
+  .jny__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jny__stagewrap {
+    position: static;
+  }
+
+  .jny__glyph {
+    width: min(280px, 64vw);
+  }
+
+  .jny__chapters {
+    gap: 3rem;
+    padding: 1rem 0 0;
+  }
+
+  .jny__chapter {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jny__chapter {
+    opacity: 1;
+  }
+}

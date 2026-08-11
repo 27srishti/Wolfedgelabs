@@ -1,11 +1,15 @@
 import Topbar from "./components/Topbar";
 import Hero from "./sections/Hero";
-import Manifesto from "./sections/Manifesto";
+import Identity from "./sections/Identity";
 import Systems from "./sections/Systems";
-import SpecSheet from "./sections/SpecSheet";
+import Operations from "./sections/Operations";
 import Cobalt from "./sections/Cobalt";
 import Canton from "./sections/Canton";
-import Proof from "./sections/Proof";
+import Orbit from "./sections/Orbit";
+import Audiences from "./sections/Audiences";
+import Telemetry from "./sections/Telemetry";
+import Journey from "./sections/Journey";
+import Founder from "./sections/Founder";
 import Coda from "./sections/Coda";
 
 export default function App() {
@@ -14,12 +18,16 @@ export default function App() {
       <Topbar />
       <main>
         <Hero />
-        <Manifesto />
+        <Identity />
         <Systems />
-        <SpecSheet />
+        <Operations />
         <Cobalt />
         <Canton />
-        <Proof />
+        <Orbit />
+        <Audiences />
+        <Telemetry />
+        <Journey />
+        <Founder />
         <Coda />
       </main>
     </>

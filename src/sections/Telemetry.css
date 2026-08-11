@@ -1,0 +1,149 @@
+/* ————————————————————————————————————————————————
+   TELEMETRY — dark instrument plate.
+   ———————————————————————————————————————————————— */
+
+.tel {
+  background: var(--vault-2);
+  padding: clamp(6rem, 13vh, 10rem) var(--gutter);
+}
+
+.tel__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ———— The dominant figure ———— */
+
+.tel__main {
+  position: relative;
+  padding-bottom: clamp(2.4rem, 6vh, 4rem);
+}
+
+.tel__scale {
+  display: flex;
+  justify-content: space-between;
+  width: min(680px, 100%);
+  margin-bottom: 1.6rem;
+}
+
+.tel__scale i {
+  width: 1px;
+  height: 9px;
+  background: rgba(242, 239, 233, 0.22);
+}
+
+.tel__scale i.maj {
+  height: 17px;
+  background: rgba(143, 168, 255, 0.55);
+}
+
+.tel__figure {
+  display: flex;
+  align-items: baseline;
+}
+
+.tel__big {
+  font-family: var(--font-g);
+  font-size: clamp(5rem, 15vw, 13rem);
+  font-weight: 650;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.tel__pct {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  color: var(--sky);
+  margin-left: 0.6rem;
+}
+
+.tel__figure-label {
+  display: block;
+  margin-top: 1rem;
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  color: var(--bone-2);
+}
+
+.tel__figure-label .serif {
+  color: var(--sky);
+}
+
+/* ———— Flanking readouts ———— */
+
+.tel__readouts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--vrule);
+}
+
+.tel__readout {
+  padding: clamp(1.6rem, 4vh, 2.6rem) 1.4rem clamp(1.6rem, 4vh, 2.6rem) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tel__readout + .tel__readout {
+  border-left: 1px solid var(--vrule);
+  padding-left: 1.6rem;
+}
+
+.tel__readout-value {
+  font-family: var(--font-g);
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.tel__readout-unit {
+  font-size: 1rem;
+  color: var(--bone-2);
+}
+
+.tel__readout-note {
+  margin-top: 0.5rem;
+  color: rgba(242, 239, 233, 0.4);
+}
+
+/* ———— Disciplines ———— */
+
+.tel__disciplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 2.2rem;
+  border-top: 1px solid var(--vrule);
+  padding-top: clamp(1.6rem, 4vh, 2.4rem);
+}
+
+.tel__disc {
+  font-size: 0.95rem;
+  color: var(--bone-2);
+}
+
+.tel__disc::before {
+  content: "+ ";
+  color: var(--sky);
+}
+
+.tel__foot {
+  margin: clamp(2rem, 5vh, 3rem) 0 0;
+  color: rgba(242, 239, 233, 0.38);
+}
+
+/* ———— Collapse ———— */
+
+@media (max-width: 720px) {
+  .tel__readouts {
+    grid-template-columns: 1fr;
+  }
+
+  .tel__readout + .tel__readout {
+    border-left: 0;
+    border-top: 1px solid var(--vrule);
+    padding-left: 0;
+  }
+}

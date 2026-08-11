@@ -1,48 +1,82 @@
+import { useState } from "react";
 import { Lines } from "../components/Kit";
 import { useRiseGroup } from "../hooks/useInView";
 import "./Canton.css";
 
-const REASONS = [
+/* ————————————————————————————————————————————————
+   WHY CANTON — an interactive editorial argument.
+   Six reasons as a typographic index; choosing one re-lights
+   the same transaction diagram to demonstrate the idea.
+   One diagram, six behaviours: the network itself explained.
+   ———————————————————————————————————————————————— */
+
+const THEMES = [
   {
-    lead: "Private,",
-    rest: "by architecture — each party sees only its slice of a transaction. Enforced by the protocol, not by convention.",
+    key: "privacy",
+    name: "Privacy",
+    line: "Each party sees only its slice of a transaction. Enforced by the protocol, not by convention.",
   },
   {
-    lead: "Deterministic,",
-    rest: "where finance needs finality. Atomic settlement across applications, with verifiable outcomes.",
+    key: "settlement",
+    name: "Settlement",
+    line: "Atomic, deterministic settlement across applications. Finality exactly where finance needs it.",
   },
   {
-    lead: "Permissioned,",
-    rest: "natively. Assets carry their own rules for who can hold, transfer or observe — the model institutions already run.",
+    key: "workflows",
+    name: "Financial workflows",
+    line: "Multi-party workflows modeled directly on-chain, the way institutions already operate.",
   },
   {
-    lead: "Adopted,",
-    rest: "in production. Canton is where regulated finance is actually deploying — and we build the layer it runs on.",
+    key: "assets",
+    name: "Asset operations",
+    line: "Assets carry their own rules. Who can hold, transfer or observe is native to the asset itself.",
+  },
+  {
+    key: "verifiability",
+    name: "Verifiability",
+    line: "Activity is provable on-chain without exposing counterparties or positions.",
+  },
+  {
+    key: "capital",
+    name: "Capital coordination",
+    line: "Committed capital coordinates across Featured Apps and settles on shared rails.",
   },
 ];
 
-function PrivacyInk() {
+/* One transaction, three segments, three parties.
+   The active theme decides how the segments behave. */
+function TxDiagram({ theme }) {
   const parties = ["A", "B", "C"];
   return (
-    <figure className="canton__fig" aria-hidden="true">
+    <figure className={`canton__fig canton__fig--${theme}`} aria-hidden="true">
       <figcaption className="mono">One transaction</figcaption>
       <div className="canton__tx">
         <span className="s1" />
         <span className="s2" />
         <span className="s3" />
+        <i className="canton__tx-flash" />
       </div>
       {parties.map((p, k) => (
         <div className="canton__view" key={p}>
           <span className="mono">Party {p}</span>
           <div className="canton__tx canton__tx--s">
             {[0, 1, 2].map((s) => (
-              <span key={s} className={s === k ? `s${s + 1}` : "void"} />
+              <span key={s} className={`seg s${s + 1} ${s === k ? "own" : "other"}`} />
             ))}
           </div>
         </div>
       ))}
       <figcaption className="mono canton__cap">
-        Sub-transaction privacy
+        {
+          {
+            privacy: "Sub-transaction privacy",
+            settlement: "Atomic across all parties",
+            workflows: "Sequenced obligations",
+            assets: "Permissions travel with the asset",
+            verifiability: "Provable, not exposed",
+            capital: "Shared rails, coordinated capital",
+          }[theme]
+        }
       </figcaption>
     </figure>
   );
@@ -50,13 +84,15 @@ function PrivacyInk() {
 
 export default function Canton() {
   const rise = useRiseGroup(0.07);
+  const [active, setActive] = useState("privacy");
+  const current = THEMES.find((t) => t.key === active);
 
   return (
     <section className="canton sheet" id="canton" ref={rise}>
       <div className="canton__inner">
         <div className="canton__left">
           <p className="dex" data-rise>
-            <span className="dex__n">( 05 )</span> Why Canton
+            Why Canton
           </p>
           <Lines
             className="canton__title"
@@ -68,21 +104,28 @@ export default function Canton() {
               <>settles.</>,
             ]}
           />
-          <div data-rise>
-            <PrivacyInk />
+
+          <div className="canton__index" data-rise role="tablist" aria-label="Why Canton">
+            {THEMES.map((t) => (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={active === t.key}
+                className={`canton__idx ${active === t.key ? "on" : ""}`}
+                onClick={() => setActive(t.key)}
+              >
+                <span className="canton__idx-name">{t.name}</span>
+              </button>
+            ))}
           </div>
         </div>
 
-        <ol className="canton__reasons">
-          {REASONS.map((r, i) => (
-            <li className="canton__reason" data-rise key={r.lead}>
-              <span className="mono canton__reason-n">0{i + 1}</span>
-              <p>
-                <em className="serif canton__lead">{r.lead}</em> {r.rest}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <div className="canton__right" data-rise>
+          <TxDiagram theme={active} key={active} />
+          <p className="canton__reading">
+            <em className="serif canton__lead">{current.name}.</em> {current.line}
+          </p>
+        </div>
       </div>
     </section>
   );

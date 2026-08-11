@@ -1,0 +1,229 @@
+/* ————————————————————————————————————————————————
+   IDENTITY — pinned two-sides scene.
+   Dark continuation of the hero's world.
+   ———————————————————————————————————————————————— */
+
+.identity {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 76% -10%, rgba(39, 67, 255, 0.14), transparent 55%),
+    var(--vault);
+  overflow: hidden;
+}
+
+.identity__stage {
+  position: relative;
+  min-height: 100dvh;
+  padding: clamp(5rem, 12vh, 8rem) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ———— The two statements ———— */
+
+.identity__a,
+.identity__b {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  will-change: transform, opacity;
+}
+
+.identity__b {
+  opacity: 0;
+  text-align: right;
+}
+
+.identity__big {
+  margin: 0;
+  font-family: var(--font-g);
+  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  color: var(--bone);
+}
+
+.identity__big .serif {
+  color: var(--sky);
+  font-weight: 400;
+}
+
+.identity__side {
+  margin: 1.4rem 0 0;
+  max-width: 30rem;
+  color: var(--bone-2);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.identity__side--right {
+  margin-left: auto;
+}
+
+/* ———— The architecture map ———— */
+
+.idmap {
+  position: relative;
+  margin: 0 auto;
+  width: min(1080px, 100%);
+  opacity: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.idmap__wires {
+  width: 100%;
+  height: clamp(300px, 46vh, 460px);
+}
+
+.idmap__edge {
+  fill: none;
+  stroke: rgba(143, 168, 255, 0.5);
+  stroke-width: 1.2;
+}
+
+.idmap__rail {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 2.2vh, 1.4rem);
+}
+
+.idmap__rail--products {
+  text-align: right;
+}
+
+.idmap__rail-title {
+  color: var(--sky);
+  margin-bottom: 0.4rem;
+}
+
+.idmap__node {
+  font-family: var(--font-g);
+  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--bone);
+  opacity: 0;
+}
+
+.idmap__rail--products .idmap__node {
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+}
+
+.idmap__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -58%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--bone);
+  opacity: 0;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--vrule);
+  border-radius: 14px;
+  background: rgba(13, 15, 19, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+.idmap__core svg {
+  color: var(--sky);
+}
+
+.idmap__lesson {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-1 * clamp(2.4rem, 6vh, 4rem));
+  text-align: center;
+  font-family: var(--font-s);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  color: var(--bone-2);
+  opacity: 0;
+}
+
+/* ———— Small screens: stacked, no pin ———— */
+
+@media (max-width: 899px) {
+  .identity__stage {
+    min-height: 0;
+    gap: 3.2rem;
+  }
+
+  .identity__a,
+  .identity__b {
+    position: static;
+    transform: none;
+    opacity: 1;
+  }
+
+  .identity__b {
+    text-align: left;
+  }
+
+  .identity__side--right {
+    margin-left: 0;
+  }
+
+  .idmap {
+    opacity: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 2rem;
+    margin-top: 1rem;
+  }
+
+  .idmap__wires {
+    display: none;
+  }
+
+  .idmap__core {
+    position: static;
+    transform: none;
+    grid-column: 1 / -1;
+    order: 2;
+    flex-direction: row;
+    justify-content: center;
+    opacity: 1;
+  }
+
+  .idmap__rail--infra {
+    order: 1;
+  }
+
+  .idmap__rail--products {
+    order: 1;
+  }
+
+  .idmap__node {
+    opacity: 1;
+  }
+
+  .idmap__lesson {
+    position: static;
+    grid-column: 1 / -1;
+    order: 3;
+    opacity: 1;
+    margin-top: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity__a,
+  .identity__b,
+  .idmap,
+  .idmap__node,
+  .idmap__core,
+  .idmap__lesson {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
