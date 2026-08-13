@@ -7,9 +7,11 @@
 .sys-scroll {
   position: relative;
   overflow: hidden;
-  background: #ebefe9;
-  color: #080a08;
+  background: #000;
+  color: #edeff8;
 }
+
+
 
 .sys-scroll * {
   box-sizing: border-box;
@@ -23,6 +25,7 @@
 /* ———— Intro panel ———— */
 
 .sys-intro {
+  position: relative;
   display: flex;
   min-height: 70dvh;
   width: 100%;
@@ -35,6 +38,7 @@
 .sys-intro__kicker {
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.6875rem;
+  color: #8fa8ff;
 }
 
 .sys-intro__title {
@@ -51,7 +55,7 @@
   max-width: 24rem;
   font-size: 1rem;
   line-height: 1.75rem;
-  color: rgba(8, 10, 8, 0.6);
+  color: rgba(235, 240, 250, 0.58);
 }
 
 /* ———— Product panels ———— */
@@ -65,12 +69,26 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 2.5rem;
-  border-top: 1px solid rgba(8, 10, 8, 0.15);
   padding: 6rem 1.25rem;
+  background: rgba(14, 20, 35, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(143, 168, 255, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.sys-track > .sys-panel:nth-child(3) { background: #dfe4dc; }
-.sys-track > .sys-panel:nth-child(4) { background: #cfd5cc; }
+.sys-intro::before,
+.sys-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .sys-panel__meta {
   display: flex;
@@ -78,6 +96,22 @@
   justify-content: space-between;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.625rem;
+  color: rgba(235, 240, 250, 0.45);
+}
+
+.sys-panel__watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+  font-size: clamp(20rem, 30vw, 40rem);
+  font-weight: 800;
+  color: #fff;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
 }
 
 .sys-panel__content {
@@ -96,25 +130,54 @@
   letter-spacing: -0.03em;
 }
 
+.sys-panel__title .sys-accent {
+  background: linear-gradient(135deg, #fff 0%, #8fa8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 .sys-panel__body {
   margin: 1.75rem 0 0;
   max-width: 28rem;
   font-size: 1rem;
   line-height: 1.75rem;
-  color: rgba(8, 10, 8, 0.6);
+  color: rgba(235, 240, 250, 0.58);
 }
 
 .sys-panel__link {
-  margin-top: 2rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  border-bottom: 1px solid #080a08;
-  padding-bottom: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: inherit;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: rgba(143, 168, 255, 0.1);
+  color: #8fa8ff;
+  font-size: 0.75rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   text-decoration: none;
+  border: 1px solid rgba(143, 168, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sys-panel__link:hover {
+  background: rgba(143, 168, 255, 0.2);
+  border-color: rgba(143, 168, 255, 0.4);
+  box-shadow: 0 0 20px rgba(143, 168, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.sys-panel__link svg {
+  transition: transform 0.3s ease;
+}
+
+.sys-panel__link:hover svg {
+  transform: translate(2px, -2px);
 }
 
 /* ————————————————————————————————————————————————
@@ -137,11 +200,11 @@
   font-size: 0.625rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(8, 10, 8, 0.45);
+  color: rgba(235, 240, 250, 0.4);
 }
 
 .viz__cap-mid {
-  color: #2743ff;
+  color: #8fa8ff;
 }
 
 /* ———— Calden: the permission chain ———— */
@@ -163,7 +226,7 @@
 }
 
 .viz-chain__cell {
-  border: 1px solid rgba(8, 10, 8, 0.35);
+  border: 1px solid rgba(190, 205, 245, 0.28);
   border-radius: 999px;
   padding: 0.5rem 0.95rem;
   font-family: "IBM Plex Mono", monospace;
@@ -171,19 +234,20 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.35);
+  color: rgba(235, 240, 250, 0.75);
+  background: rgba(10, 14, 26, 0.6);
 }
 
 .viz-chain__step:first-child .viz-chain__cell,
 .viz-chain__step:last-child .viz-chain__cell {
-  border-color: #2743ff;
-  color: #2743ff;
+  border-color: #8fa8ff;
+  color: #8fa8ff;
 }
 
 .viz-chain__wire {
   flex: 1;
   height: 1px;
-  background: rgba(8, 10, 8, 0.3);
+  background: rgba(190, 205, 245, 0.22);
   min-width: 0.8rem;
 }
 
@@ -195,8 +259,8 @@
   height: 7px;
   margin-top: -3.5px;
   border-radius: 50%;
-  background: #2743ff;
-  box-shadow: 0 0 0 4px rgba(39, 67, 255, 0.15);
+  background: #9db8ff;
+  box-shadow: 0 0 0 4px rgba(143, 168, 255, 0.16), 0 0 12px rgba(143, 168, 255, 0.7);
 }
 
 .in .viz-chain__token {
@@ -231,7 +295,7 @@
   display: block;
   height: 9px;
   width: var(--w);
-  background: rgba(8, 10, 8, 0.22);
+  background: rgba(225, 232, 250, 0.4);
   transform: scaleX(0);
   transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1) calc(var(--i) * 0.09s);
 }
@@ -239,7 +303,7 @@
 .viz-book__side--bid span {
   margin-left: auto;
   transform-origin: right center;
-  background: #2743ff;
+  background: #6f96ff;
   opacity: calc(0.95 - var(--i) * 0.18);
 }
 
@@ -255,7 +319,7 @@
 .viz-book__spine {
   position: relative;
   width: 1px;
-  background: rgba(8, 10, 8, 0.4);
+  background: rgba(190, 205, 245, 0.35);
 }
 
 .viz-book__match {
@@ -266,7 +330,8 @@
   height: 11px;
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0);
-  background: #2743ff;
+  background: #9db8ff;
+  box-shadow: 0 0 16px rgba(143, 168, 255, 0.9);
 }
 
 .in .viz-book__match {
@@ -297,23 +362,23 @@
 .viz-flow__in,
 .viz-flow__out {
   fill: none;
-  stroke: rgba(8, 10, 8, 0.3);
+  stroke: rgba(190, 205, 245, 0.22);
   stroke-width: 1.2;
 }
 
 .viz-flow__out {
-  stroke: rgba(39, 67, 255, 0.55);
+  stroke: rgba(143, 168, 255, 0.5);
 }
 
 .viz-flow__dot {
-  fill: #080a08;
+  fill: rgba(235, 240, 252, 0.85);
   opacity: 0;
 }
 
 .viz-flow__dot--in { offset-path: path("M 20 120 H 210"); }
-.viz-flow__dot--a { fill: #2743ff; offset-path: path("M 350 120 C 430 120, 460 48, 540 48"); }
-.viz-flow__dot--b { fill: #2743ff; offset-path: path("M 350 120 H 540"); }
-.viz-flow__dot--c { fill: #2743ff; offset-path: path("M 350 120 C 430 120, 460 192, 540 192"); }
+.viz-flow__dot--a { fill: #9db8ff; offset-path: path("M 350 120 C 430 120, 460 48, 540 48"); }
+.viz-flow__dot--b { fill: #9db8ff; offset-path: path("M 350 120 H 540"); }
+.viz-flow__dot--c { fill: #9db8ff; offset-path: path("M 350 120 C 430 120, 460 192, 540 192"); }
 
 .in .viz-flow__dot {
   animation: flow-run 4.6s linear infinite;
@@ -336,14 +401,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -58%);
-  border: 1px solid #2743ff;
-  color: #2743ff;
+  border: 1px solid #8fa8ff;
+  color: #8fa8ff;
   border-radius: 999px;
   padding: 0.5rem 1.3rem;
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(10, 14, 26, 0.75);
   backdrop-filter: blur(2px);
 }
 
@@ -352,11 +417,11 @@
   font-size: 0.625rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(8, 10, 8, 0.6);
+  color: rgba(235, 240, 250, 0.5);
 }
 
 .viz-flow__label--cc { left: 1%; top: 38%; }
-.viz-flow__label--wecc { left: 66%; top: 38%; color: #2743ff; }
+.viz-flow__label--wecc { left: 66%; top: 38%; color: #8fa8ff; }
 .viz-flow__label--apps { right: 0; top: 8%; }
 
 /* ———— Pinned horizontal layout ———— */
@@ -382,7 +447,7 @@
     width: 64vw;
     min-width: 820px;
     border-top: 0;
-    border-left: 1px solid rgba(8, 10, 8, 0.15);
+    border-left: 1px dashed rgba(255, 255, 255, 0.4);
     padding: 6.5rem 3.5rem;
   }
 
@@ -411,4 +476,10 @@
     transform: translate(-50%, -50%) scale(1) !important;
     opacity: 1 !important;
   }
+}
+
+
+/* accent phrase: the key half of each statement, in the brand sky */
+.sys-accent {
+  color: #8fa8ff;
 }

@@ -50,8 +50,8 @@ html {
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: #08090f;
+  color: var(--bone);
   font-family: var(--font-g);
   font-size: 16px;
   line-height: 1.55;
@@ -87,29 +87,17 @@ svg {
   max-width: 100%;
 }
 
-/* ———— Film grain over everything ———— */
+/* ———— Sand texture over everything (static, fine) ———— */
 
 body::after {
   content: "";
   position: fixed;
-  inset: -50%;
+  inset: 0;
   z-index: 999;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-  opacity: 0.06;
-  animation: grain 0.9s steps(2) infinite;
-}
-
-@keyframes grain {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-2%, 1%);
-  }
-  100% {
-    transform: translate(1%, -2%);
-  }
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.085;
+  mix-blend-mode: overlay;
 }
 
 /* ———— Type primitives ———— */

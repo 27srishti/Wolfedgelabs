@@ -1,5 +1,5 @@
 .coda {
-  background: var(--vault);
+  background: #07080d;
   color: var(--bone);
   padding: clamp(7rem, 15vh, 12rem) var(--gutter) 2.5rem;
   z-index: 6;
@@ -137,4 +137,28 @@
   .coda__footer-grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+
+/* ———— Colour atmosphere ———— */
+
+.coda {
+  position: relative;
+}
+
+.coda::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(56% 52% at 50% 40%, rgba(80, 120, 255, 0.16), transparent 68%),
+    radial-gradient(44% 46% at 88% 4%, rgba(100, 140, 255, 0.09), transparent 70%),
+    radial-gradient(46% 40% at 10% 100%, rgba(52, 168, 210, 0.08), transparent 72%);
+}
+
+.coda__inner,
+.coda__footer {
+  position: relative;
+  z-index: 1;
 }

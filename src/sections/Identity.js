@@ -16,8 +16,17 @@ gsap.registerPlugin(ScrollTrigger);
    One scene, pinned. The map is the reconnection.
    ———————————————————————————————————————————————— */
 
-const INFRA = ["Validators", "RPC", "Nodes", "DevOps"];
-const PRODUCTS = ["Calden", "Cardiv", "Nexus"];
+const INFRA = [
+  ["Validators", "Multi-network consensus"],
+  ["RPC", "Dedicated endpoints"],
+  ["Nodes", "Multi-region deployment"],
+  ["DevOps", "Automation and monitoring"],
+];
+const PRODUCTS = [
+  ["Calden", "Canton wallet"],
+  ["Cardiv", "On-chain order book"],
+  ["Nexus", "Liquid staking"],
+];
 
 /* Map geometry (viewBox 1000 × 520). Left rail x=150, core x=500, right rail x=850. */
 const LY = [80, 200, 320, 440]; // infra node y
@@ -29,6 +38,17 @@ function edge(x1, y1, x2, y2) {
   const mx = (x1 + x2) / 2;
   return `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
 }
+
+/* One set of paths: the wire is drawn along them and the signal travels
+   them, so the light moves through the real architecture. */
+const IN_PATHS = LY.map((y) => edge(0, y, 468, CY));
+const OUT_PATHS = RY.map((y) => edge(532, CY, 1000, y));
+
+/* Labels are placed at their wire's exact y, as a % of the 520 viewBox,
+   so every name lines up with the line that leaves it. */
+const VB_H = 520;
+const pct = (y) => `${(y / VB_H) * 100}%`;
+
 
 export default function Identity() {
   const root = useRef(null);
@@ -61,26 +81,50 @@ export default function Identity() {
           });
 
           tl
+            // Beat 1 depth: the ghost word surfaces, then drifts slower
+            // than the statement (parallax: deeper layer, slower motion)
+            .fromTo(
+              q(".identity__ghost--a"),
+              { opacity: 0, xPercent: 4 },
+              { opacity: 1, xPercent: 0, duration: 0.35 },
+              0
+            )
+            .to(q(".identity__ghost--a"), { xPercent: -5, duration: 0.85, ease: "none" }, 0.35)
+            // hand the depth layer over: OPERATE leaves as BUILD's statement arrives
+            .to(q(".identity__ghost--a"), { opacity: 0, xPercent: -9, duration: 0.45 }, 0.8)
             // Beat 1 → 2: first statement yields the stage
             .fromTo(
               q(".identity__a"),
               { yPercent: 0, opacity: 1 },
-              { yPercent: -46, opacity: 1, duration: 0.9 },
+              { yPercent: -46, opacity: 0, duration: 0.5 },
               0.35
             )
-            .to(q(".identity__a .identity__big"), { scale: 0.62, transformOrigin: "left top", duration: 0.9 }, 0.35)
+            // scale the whole statement group (heading + copy together) so the
+            // lockup stays tight; a gentle reduction keeps it commanding
+            .to(q(".identity__a .identity__group"), { scale: 0.74, transformOrigin: "left center", duration: 0.5 }, 0.35)
             .fromTo(
               q(".identity__b"),
               { yPercent: 60, opacity: 0 },
-              { yPercent: 0, opacity: 1, duration: 0.9 },
-              0.5
+              { yPercent: 0, opacity: 1, duration: 0.5 },
+              0.9
             )
+            // Beat 2 depth: the second ghost word answers from the far corner
+            .fromTo(
+              q(".identity__ghost--b"),
+              { opacity: 0, xPercent: -4 },
+              { opacity: 1, xPercent: 0, duration: 0.5 },
+              0.95
+            )
+            .to(q(".identity__ghost--b"), { xPercent: 4, duration: 0.9, ease: "none" }, 1.45)
             // Beat 3: clean hand-off. Each statement exits toward its rail
             // and is REPLACED by that rail's title: nothing lingers behind
             // the map, so nothing can overlap it.
             .to(q(".identity__a"), { yPercent: -70, xPercent: -4, opacity: 0, duration: 0.55 }, 1.6)
+            .to(q(".identity__ghost--b"), { yPercent: -14, opacity: 0, duration: 0.5 }, 1.7)
             .to(q(".identity__b"), { yPercent: -46, xPercent: 4, opacity: 0, duration: 0.55 }, 1.75)
+            .fromTo(q(".identity__spot"), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.05)
             .fromTo(q(".idmap"), { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6 }, 2.05)
+            .fromTo(q(".idmap__lesson"), { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 }, 2.05)
             .fromTo(
               q(".idmap__rail--infra .idmap__rail-title"),
               { opacity: 0, x: -14 },
@@ -110,7 +154,6 @@ export default function Identity() {
               { opacity: 1, x: 0, stagger: 0.1, duration: 0.4 },
               3.45
             )
-            .fromTo(q(".idmap__lesson"), { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.75)
             .to({}, { duration: 0.5 }); // hold the finished map
         }
       );
@@ -136,44 +179,93 @@ export default function Identity() {
   return (
     <section className="identity theme-dark" id="who" data-theme="dark" ref={root}>
       <div className="identity__stage">
+        {/* depth layer: ghost words, glass hardware, spotlight — all scrubbed */}
+        <div className="identity__decor" aria-hidden="true">
+          <span className="identity__ghost identity__ghost--a">Operate</span>
+          <span className="identity__ghost identity__ghost--b">Build</span>
+          <span className="identity__spot" />
+        </div>
+
         <div className="identity__a">
-          <h2 className="identity__big">
-            We operate <br />
-            the <em className="serif">infrastructure.</em>
-          </h2>
-          <p className="identity__side">
-            Validators, RPC and nodes, run in production since 2018. No hype,
-            no prototypes: uptime.
-          </p>
+          <div className="identity__group">
+            <h2 className="identity__big">
+              We operate <br />
+              the <em className="identity__highlight">infrastructure.</em>
+            </h2>
+            <p className="identity__side">
+              Validators, RPC and nodes, run in production since 2018. No hype,
+              no prototypes: uptime.
+            </p>
+          </div>
         </div>
 
         <div className="identity__b">
-          <h2 className="identity__big identity__big--right">
-            We build <br />
-            the <em className="serif">products.</em>
-          </h2>
-          <p className="identity__side identity__side--right">
-            A product lab shipping Canton-native financial systems on top of
-            that operational experience.
-          </p>
+          <div className="identity__group">
+            <h2 className="identity__big identity__big--right">
+              We build <br />
+              the <em className="identity__highlight">products.</em>
+            </h2>
+            <p className="identity__side identity__side--right">
+              A product lab shipping Canton-native financial systems on top of
+              that operational experience.
+            </p>
+          </div>
         </div>
 
         <figure className="idmap" aria-label="WolfEdge architecture: validators, RPC, nodes and DevOps feed one operational core, which powers Calden, Cardiv and Nexus.">
+          <figcaption className="idmap__lesson">
+            <span className="idmap__lesson-title">
+              Built for scale.
+            </span>
+            <span className="idmap__sub">
+              Nothing here is theoretical. Every product runs on infrastructure
+              we already operate in production.
+            </span>
+          </figcaption>
+          
+          <div className="idmap__grid">
           <div className="idmap__rail idmap__rail--infra">
             <span className="idmap__rail-title mono">Infrastructure</span>
-            {INFRA.map((n) => (
-              <span className="idmap__node" key={n}>
-                {n}
+            {INFRA.map(([n, sub], i) => (
+              <span className="idmap__node" key={n} style={{ top: pct(LY[i]) }}>
+                <b className="idmap__node-name">{n}</b>
+                <em className="idmap__node-sub">{sub}</em>
               </span>
             ))}
           </div>
 
           <svg className="idmap__wires" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
-            {LY.map((y, i) => (
-              <path key={`in${i}`} className="idmap__edge idmap__edge--in" d={edge(30, y, 468, CY)} />
+            <defs>
+              <mask id="wire-mask" maskUnits="userSpaceOnUse">
+                {IN_PATHS.map((d, i) => (
+                  <path key={`mask-in${i}`} className="idmap__edge idmap__edge--in" style={{ stroke: "white", strokeWidth: 20 }} d={d} />
+                ))}
+                {OUT_PATHS.map((d, i) => (
+                  <path key={`mask-out${i}`} className="idmap__edge idmap__edge--out" style={{ stroke: "white", strokeWidth: 20 }} d={d} />
+                ))}
+              </mask>
+            </defs>
+            {IN_PATHS.map((d, i) => (
+              <path key={`in${i}`} className="idmap__wire-dashed" mask="url(#wire-mask)" d={d} />
             ))}
-            {RY.map((y, i) => (
-              <path key={`out${i}`} className="idmap__edge idmap__edge--out" d={edge(532, CY, 970, y)} />
+            {OUT_PATHS.map((d, i) => (
+              <path key={`out${i}`} className="idmap__wire-dashed" mask="url(#wire-mask)" d={d} />
+            ))}
+            {IN_PATHS.map((d, i) => (
+              <circle
+                key={`sin${i}`}
+                className="idmap__signal"
+                r="3.5"
+                style={{ offsetPath: `path("${d}")`, animationDelay: `${i * 0.6}s` }}
+              />
+            ))}
+            {OUT_PATHS.map((d, i) => (
+              <circle
+                key={`sout${i}`}
+                className="idmap__signal"
+                r="3.5"
+                style={{ offsetPath: `path("${d}")`, animationDelay: `${1.2 + i * 0.6}s` }}
+              />
             ))}
           </svg>
 
@@ -192,16 +284,15 @@ export default function Identity() {
 
           <div className="idmap__rail idmap__rail--products">
             <span className="idmap__rail-title mono">Product lab</span>
-            {PRODUCTS.map((n) => (
-              <span className="idmap__node" key={n}>
-                {n}
+            {PRODUCTS.map(([n, sub], i) => (
+              <span className="idmap__node" key={n} style={{ top: pct(RY[i]) }}>
+                <b className="idmap__node-name">{n}</b>
+                <em className="idmap__node-sub">{sub}</em>
               </span>
             ))}
           </div>
 
-          <figcaption className="idmap__lesson">
-            Operational experience becomes product. That is the company.
-          </figcaption>
+          </div>
         </figure>
       </div>
     </section>

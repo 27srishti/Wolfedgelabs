@@ -61,7 +61,7 @@ export default function Orbit() {
   const current = BODIES.find((b) => b.key === active);
 
   return (
-    <section className="orbit sheet" ref={rise}>
+    <section className="orbit sheet theme-dark" data-theme="dark" ref={rise}>
       <div className="orbit__inner">
         <div className="orbit__copy">
           <Lines

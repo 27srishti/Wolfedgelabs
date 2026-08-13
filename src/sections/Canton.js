@@ -88,7 +88,7 @@ export default function Canton() {
   const current = THEMES.find((t) => t.key === active);
 
   return (
-    <section className="canton sheet" id="canton" ref={rise}>
+    <section className="canton sheet theme-dark" id="canton" data-theme="dark" ref={rise}>
       <div className="canton__inner">
         <div className="canton__left">
           <p className="dex" data-rise>

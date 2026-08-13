@@ -27,9 +27,23 @@
   position: absolute;
   left: var(--gutter);
   right: var(--gutter);
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
   will-change: transform, opacity;
+  z-index: 2;
+}
+
+.identity__b {
+  top: 55%;
+}
+
+.identity__group {
+  display: inline-block;
+  will-change: transform;
+}
+
+.identity__b .identity__group {
+  display: block;
 }
 
 .identity__b {
@@ -40,58 +54,104 @@
 .identity__big {
   margin: 0;
   font-family: var(--font-g);
-  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
-  font-weight: 600;
-  line-height: 0.94;
-  letter-spacing: -0.03em;
+  font-size: clamp(3.6rem, 9.5vw, 9.5rem);
+  font-weight: 650;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
   color: var(--bone);
 }
 
-.identity__big .serif {
-  color: var(--sky);
-  font-weight: 400;
+.identity__big .identity__highlight {
+  font-style: normal;
+  background: linear-gradient(135deg, #c3d3ff 0%, var(--sky) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 20px rgba(143, 168, 255, 0.25));
 }
 
 .identity__side {
-  margin: 1.4rem 0 0;
-  max-width: 30rem;
+  margin: 2rem 0 0;
+  max-width: 32rem;
   color: var(--bone-2);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  border-left: 2px solid rgba(143, 168, 255, 0.3);
+  position: relative;
+}
+
+.identity__side::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 40%;
+  background: var(--sky);
+  box-shadow: 0 0 10px var(--sky);
 }
 
 .identity__side--right {
   margin-left: auto;
+  padding-left: 0;
+  padding-right: 1.5rem;
+  border-left: none;
+  border-right: 2px solid rgba(143, 168, 255, 0.3);
+  text-align: right;
+}
+
+.identity__side--right::before {
+  left: auto;
+  right: -2px;
 }
 
 /* ———— The architecture map ———— */
 
 .idmap {
   position: relative;
+  z-index: 2;
   margin: 0 auto;
-  width: min(1080px, 100%);
+  width: min(2000px, 100%);
   opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.idmap__grid {
+  position: relative;
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: stretch;
+  gap: 0;
 }
 
 .idmap__wires {
   width: 100%;
-  height: clamp(300px, 46vh, 460px);
+  height: clamp(320px, 55vh, 900px);
+  filter: drop-shadow(0 0 8px rgba(143, 168, 255, 0.4));
 }
 
 .idmap__edge {
   fill: none;
-  stroke: rgba(143, 168, 255, 0.5);
-  stroke-width: 1.2;
+  stroke: rgba(143, 168, 255, 0.4);
+  stroke-width: 1.5;
+}
+
+.idmap__wire-dashed {
+  fill: none;
+  stroke: rgba(143, 168, 255, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  vector-effect: non-scaling-stroke;
 }
 
 .idmap__rail {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.8rem, 2.2vh, 1.4rem);
+  position: relative;
+  min-width: clamp(14rem, 25vw, 30rem);
 }
 
 .idmap__rail--products {
@@ -99,56 +159,214 @@
 }
 
 .idmap__rail-title {
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
   color: var(--sky);
-  margin-bottom: 0.4rem;
+}
+
+.idmap__rail--infra .idmap__rail-title {
+  left: auto;
+  right: 1.5rem;
+  text-align: right;
+}
+
+.idmap__rail--products .idmap__rail-title {
+  left: 1.5rem;
+  right: auto;
+  text-align: left;
 }
 
 .idmap__node {
   font-family: var(--font-g);
-  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--bone);
+  position: absolute;
+  transform: translateY(-50%);
+  white-space: nowrap;
   opacity: 0;
 }
 
+/* Two registers, one argument: the left rail is machine (technical,
+   spaced, uppercase), the right is brand (serif display). The wires
+   carry one into the other. */
+/* Two registers, one argument: the left rail is machine (technical,
+   spaced, uppercase), the right is brand (serif display), and each
+   carries a short descriptor. */
+.idmap__rail--infra .idmap__node,
 .idmap__rail--products .idmap__node {
-  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  position: absolute;
+  transform: translateY(-50%);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  width: auto;
+}
+
+.idmap__rail--infra .idmap__node {
+  left: auto;
+  right: 0;
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.idmap__rail--products .idmap__node {
+  left: 0;
+  right: auto;
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.idmap__rail--infra .idmap__node-name::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1.5rem;
+  transform: translate(50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--bone);
+  border: 2px solid var(--sky);
+  box-shadow: 0 0 12px var(--sky);
+  border-radius: 50%;
+  opacity: 0.45;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.idmap__rail--products .idmap__node-name::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1.5rem;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--bone);
+  border: 2px solid var(--sky);
+  box-shadow: 0 0 12px var(--sky);
+  border-radius: 50%;
+  opacity: 0.45;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.idmap__rail--infra .idmap__node:hover,
+.idmap__rail--products .idmap__node:hover {
+  transform: translateY(-50%) scale(1.03);
+}
+
+.idmap__rail--infra .idmap__node:hover .idmap__node-name::after {
+  transform: translate(50%, -50%) scale(1.5);
+  box-shadow: 0 0 20px var(--sky);
+  opacity: 1;
+}
+
+.idmap__rail--products .idmap__node:hover .idmap__node-name::after {
+  transform: translate(-50%, -50%) scale(1.5);
+  box-shadow: 0 0 20px var(--sky);
+  opacity: 1;
+}
+
+.idmap__rail--infra .idmap__node-name,
+.idmap__rail--products .idmap__node-name {
+  font-family: var(--font-g);
+  font-size: clamp(1.6rem, 3vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--bone) 0%, var(--sky) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.1;
+  white-space: nowrap;
+  position: relative;
+  z-index: 10;
+  filter: drop-shadow(0 4px 12px rgba(143, 168, 255, 0.15));
+}
+
+.idmap__node-sub {
+  margin-top: 0.3rem;
+  font-family: var(--font-m);
+  font-style: normal;
+  font-size: clamp(0.7rem, 1vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--sky);
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+.idmap__rail--infra .idmap__node-sub {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+}
+
+.idmap__rail--products .idmap__node-sub {
+  position: absolute;
+  top: 100%;
+  left: 1.5rem;
 }
 
 .idmap__core {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -58%);
+  transform: translate(-50%, -50%) rotate(45deg);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: center;
   color: var(--bone);
   opacity: 0;
-  padding: 1.1rem 1.4rem;
-  border: 1px solid var(--vrule);
-  border-radius: 14px;
-  background: rgba(13, 15, 19, 0.85);
-  backdrop-filter: blur(6px);
+  width: clamp(5.5rem, 8vw, 9rem);
+  height: clamp(5.5rem, 8vw, 9rem);
+  background: radial-gradient(circle at 50% 50%, rgba(39, 67, 255, 0.15) 0%, rgba(10, 15, 30, 0.8) 100%);
+  border: 1px solid rgba(143, 168, 255, 0.3);
+  border-radius: clamp(16px, 2vw, 24px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(143, 168, 255, 0.2), inset 0 0 20px rgba(143, 168, 255, 0.15);
+}
+
+.idmap__core span {
+  display: none;
 }
 
 .idmap__core svg {
+  transform: rotate(-45deg);
   color: var(--sky);
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 8px var(--sky));
 }
 
 .idmap__lesson {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(-1 * clamp(2.4rem, 6vh, 4rem));
+  margin-bottom: clamp(1.8rem, 4.5vh, 4rem);
   text-align: center;
-  font-family: var(--font-s);
-  font-style: italic;
-  font-size: clamp(1.15rem, 2vw, 1.6rem);
-  color: var(--bone-2);
   opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.idmap__lesson-title {
+  font-family: var(--font-g);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, var(--bone) 0%, var(--sky) 50%, var(--bone) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ———— Small screens: stacked, no pin ———— */
@@ -176,12 +394,20 @@
 
   .idmap {
     opacity: 1;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.6rem 2rem;
     margin-top: 1rem;
   }
 
+  .idmap__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
   .idmap__wires {
+    display: none;
+  }
+  
+  .idmap__rail--infra .idmap__node-name::after,
+  .idmap__rail--products .idmap__node-name::after {
     display: none;
   }
 
@@ -189,30 +415,59 @@
     position: static;
     transform: none;
     grid-column: 1 / -1;
-    order: 2;
+    order: 3;
     flex-direction: row;
     justify-content: center;
+    justify-self: center;
+    width: fit-content;
+    padding: 1.1rem 1.7rem;
     opacity: 1;
   }
 
-  .idmap__rail--infra {
-    order: 1;
+  .idmap__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
   }
 
-  .idmap__rail--products {
-    order: 1;
-  }
+  .idmap__rail--infra { order: 1; }
+  .idmap__rail--products { order: 2; }
 
   .idmap__node {
+    position: static;
+    transform: none;
     opacity: 1;
+    text-align: left !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+  }
+
+  .idmap__rail-title {
+    position: static;
+    margin-bottom: 0.5rem;
+    text-align: left !important;
+  }
+
+  .idmap__rail--infra .idmap__node-name {
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .idmap__rail--products .idmap__node-name {
+    font-size: 1.8rem;
+  }
+
+  .idmap__node-sub {
+    position: static !important;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    white-space: normal;
   }
 
   .idmap__lesson {
-    position: static;
-    grid-column: 1 / -1;
-    order: 3;
     opacity: 1;
-    margin-top: 0.6rem;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -225,5 +480,156 @@
   .idmap__lesson {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+
+/* ———— Colour atmosphere (calm, no motion) ———— */
+
+.identity::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 60% at 78% 12%, rgba(80, 110, 255, 0.16), transparent 68%),
+    radial-gradient(46% 54% at 10% 82%, rgba(90, 120, 255, 0.1), transparent 70%),
+    radial-gradient(40% 46% at 62% 100%, rgba(56, 180, 220, 0.09), transparent 72%);
+}
+
+.identity__stage {
+  z-index: 1;
+}
+
+
+/* ————————————————————————————————————————————————
+   Depth layer — ghost words, glass hardware, spotlight.
+   Everything here is scrubbed by the pinned timeline;
+   nothing moves on its own.
+   ———————————————————————————————————————————————— */
+
+.identity__decor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* mega ghost words: the architectural depth layer.
+   Oversized, outlined, bleeding off the frame edges. */
+.identity__ghost {
+  position: absolute;
+  font-family: var(--font-g);
+  font-size: clamp(11rem, 30vw, 34rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+  text-transform: uppercase;
+  /* solid fill a breath lighter than the background: reads as carved
+     into the dark, not drawn onto it */
+  color: rgba(215, 225, 250, 0.038);
+  opacity: 0;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.identity__ghost--a {
+  right: -6%;
+  bottom: -4%;
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, rgba(0, 0, 0, 0.25) 100%);
+  mask-image: linear-gradient(180deg, #000 30%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.identity__ghost--b {
+  left: 2%;
+  top: -4%;
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, rgba(0, 0, 0, 0.25) 100%);
+  mask-image: linear-gradient(180deg, #000 30%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+/* beat-3 spotlight: the map lands on a lit stage */
+.identity__spot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(1100px, 90vw);
+  aspect-ratio: 1.6;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(80, 115, 255, 0.13), transparent 70%);
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.identity__spot::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  opacity: 0.2;
+  background-image: 
+    linear-gradient(rgba(143, 168, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 168, 255, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
+  animation: panGrid 40s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes panGrid {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .identity__decor {
+    display: none;
+  }
+}
+
+
+/* signal travelling the architecture: infrastructure feeds the core,
+   the core feeds the products */
+.idmap__signal {
+  fill: #b9cdff;
+  filter: drop-shadow(0 0 6px rgba(143, 168, 255, 0.9));
+  animation: idmap-signal 4.4s cubic-bezier(0.55, 0, 0.45, 1) infinite;
+  opacity: 0;
+}
+
+@keyframes idmap-signal {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  70% { opacity: 1; }
+  82% { offset-distance: 100%; opacity: 0; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idmap__signal {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+
+/* the supporting line: statement + support, the same lockup the
+   rest of the page uses */
+.idmap__sub {
+  display: block;
+  margin: clamp(0.85rem, 1.8vh, 1.2rem) auto 0;
+  max-width: 46ch;
+  font-family: var(--font-g);
+  font-style: normal;
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  color: rgba(205, 216, 248, 0.5);
+}
+
+@media (max-width: 899px) {
+  .idmap__sub {
+    max-width: 34ch;
   }
 }

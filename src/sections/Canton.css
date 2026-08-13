@@ -1,5 +1,5 @@
 .canton {
-  background: var(--paper-2);
+  background: #0d101d;
   padding: clamp(6rem, 13vh, 10rem) var(--gutter);
   z-index: 5;
 }
@@ -85,9 +85,9 @@
 .canton__fig {
   margin: 0;
   max-width: 460px;
-  border: 1px solid var(--rule);
+  border: 1px solid rgba(160, 175, 235, 0.18);
   border-radius: 14px;
-  background: var(--paper);
+  background: linear-gradient(175deg, rgba(17, 21, 38, 0.9), rgba(10, 12, 22, 0.75));
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -276,4 +276,26 @@
     animation: none;
     opacity: 1;
   }
+}
+
+
+/* ———— Colour atmosphere on paper ———— */
+
+.canton {
+  position: relative;
+}
+
+.canton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 58% at 8% 14%, rgba(85, 115, 255, 0.12), transparent 70%),
+    radial-gradient(46% 52% at 92% 86%, rgba(60, 160, 210, 0.1), transparent 70%);
+}
+
+.canton__inner {
+  position: relative;
+  z-index: 1;
 }

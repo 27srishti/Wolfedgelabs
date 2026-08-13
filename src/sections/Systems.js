@@ -93,21 +93,24 @@ const products = [
   {
     name: "Calden",
     role: "Institutional wallet",
-    title: "Control every signature.",
+    title: "The First MetaMask ",
+    accent: "Canton Wallet",
     body: "Enterprise authentication and programmable permissions, with custody kept exactly where it belongs.",
     visual: "calden",
   },
   {
     name: "Cardiv",
     role: "Canton-native market",
-    title: "Trade and settle as one.",
+    title: "On-chain ",
+    accent: "limit order book",
     body: "A fully on-chain limit order book: professional order flow with deterministic, non-custodial settlement.",
     visual: "cardiv",
   },
   {
     name: "Nexus",
     role: "Liquid staking",
-    title: "Capital stays in motion.",
+    title: "Liquid Staking ",
+    accent: "for Canton",
     body: "Deposit CC, receive weCC, participate across Featured Apps. Rewards are variable, never guaranteed.",
     visual: "nexus",
   },
@@ -116,17 +119,21 @@ const products = [
 function Panel({ product, index }) {
   const ref = useInView(0.4);
   const Viz = VIZ[product.visual];
+  const numString = String(index + 1).padStart(2, "0");
   return (
     <article className="sys-panel" ref={ref}>
+      <span className="sys-panel__watermark" aria-hidden="true">{numString}</span>
       <div className="sys-panel__meta">
         <span>
-          {String(index + 1).padStart(2, "0")} / 03
+          {numString} / 03
         </span>
         <span>{product.role}</span>
       </div>
-      <Viz />
       <div className="sys-panel__content">
-        <h3 className="sys-panel__title">{product.title}</h3>
+        <h3 className="sys-panel__title">
+          {product.title}
+          <span className="sys-accent">{product.accent}</span>
+        </h3>
         <p className="sys-panel__body">{product.body}</p>
         <a className="sys-panel__link" href="mailto:hello@wolfedgelabs.com">
           Explore {product.name} <ArrowUpRight size={15} weight="bold" />
@@ -164,6 +171,38 @@ export default function Systems() {
         tl.to({}, { duration: LEAD })
           .to(track, { x: () => -travel(), ease: "none", duration: 1 })
           .to({}, { duration: HOLD });
+
+        // Add internal parallax inside each panel as it scrolls
+        const panels = gsap.utils.toArray(".sys-panel");
+        panels.forEach((panel) => {
+          const watermark = panel.querySelector(".sys-panel__watermark");
+          const content = panel.querySelector(".sys-panel__content");
+          const viz = panel.querySelector(".viz");
+          
+          gsap.to(watermark, {
+            x: () => 150,
+            ease: "none",
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: tl,
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            }
+          });
+
+          gsap.to(content, {
+            x: () => 60,
+            ease: "none",
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: tl,
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            }
+          });
+        });
       });
     }, root);
 
@@ -178,14 +217,14 @@ export default function Systems() {
   }, []);
 
   return (
-    <section id="products" className="sys-scroll" ref={root}>
+    <section id="products" className="sys-scroll" data-theme="dark" ref={root}>
       <div className="sys-track">
         <div className="sys-intro">
           <span className="sys-intro__kicker">[ THE PRODUCT LAB ]</span>
           <h2 className="sys-intro__title">
             Three products.
             <br />
-            One economy.
+            <span className="sys-accent">One economy.</span>
           </h2>
           <p className="sys-intro__sub">
             Purpose-built systems for custody, markets and capital formation on

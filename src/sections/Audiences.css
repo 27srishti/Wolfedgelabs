@@ -92,3 +92,25 @@
     transform: translateX(0.6rem);
   }
 }
+
+
+/* ———— Colour atmosphere ———— */
+
+.aud {
+  position: relative;
+}
+
+.aud::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 62% at 88% 20%, rgba(80, 115, 255, 0.13), transparent 68%),
+    radial-gradient(50% 58% at 6% 88%, rgba(40, 80, 220, 0.14), transparent 70%);
+}
+
+.aud__inner {
+  position: relative;
+  z-index: 1;
+}
