@@ -139,6 +139,7 @@ function Panel({ product, index }) {
           Explore {product.name} <ArrowUpRight size={15} weight="bold" />
         </a>
       </div>
+      <Viz />
     </article>
   );
 }
@@ -177,7 +178,6 @@ export default function Systems() {
         panels.forEach((panel) => {
           const watermark = panel.querySelector(".sys-panel__watermark");
           const content = panel.querySelector(".sys-panel__content");
-          const viz = panel.querySelector(".viz");
           
           gsap.to(watermark, {
             x: () => 150,
