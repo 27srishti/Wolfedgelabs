@@ -57,7 +57,11 @@ export default function About() {
     const splitCenter = stageRef.current.querySelector(".about__split--center");
     const splitRight = stageRef.current.querySelector(".about__split--right");
 
+    // Below 900px the stage is plain stacked content (see About.css),
+    // so the pinned timeline only exists on wider screens.
+    const media = gsap.matchMedia();
     const ctx = gsap.context(() => {
+      media.add("(min-width: 900px)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: stageRef.current,
@@ -110,10 +114,14 @@ export default function About() {
       
       // Hold at the end to allow user to read the split before unpinning
       tl.to({}, { duration: 1 });
+      });
 
     });
 
-    return () => ctx.revert();
+    return () => {
+      media.revert();
+      ctx.revert();
+    };
   }, []);
 
   // 2. Data Terminal Continuous Beam

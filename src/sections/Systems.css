@@ -424,6 +424,25 @@
 .viz-flow__label--wecc { left: 66%; top: 38%; color: #8fa8ff; }
 .viz-flow__label--apps { right: 0; top: 8%; }
 
+/* ———— Narrow screens: the four-step chain wraps instead of overflowing ———— */
+
+@media (max-width: 600px) {
+  .viz-chain {
+    flex-wrap: wrap;
+    row-gap: 0.6rem;
+  }
+  .viz-chain__step {
+    flex: 0 0 auto;
+  }
+  .viz-chain__wire {
+    flex: 0 0 0.8rem;
+  }
+  .viz-chain__cell {
+    font-size: 0.6rem;
+    padding: 0.45rem 0.75rem;
+  }
+}
+
 /* ———— Pinned horizontal layout ———— */
 
 @media (min-width: 900px) {

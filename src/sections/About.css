@@ -10,7 +10,7 @@
 /* ———— Typography & Utility ———— */
 
 .about__mono-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-m);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -118,12 +118,13 @@
 }
 
 .about__split-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-m);
   font-size: 0.85rem;
   color: #00E5FF;
   margin-bottom: 2rem;
   letter-spacing: 0.05em;
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   justify-content: center;
   background: rgba(0, 229, 255, 0.1);
@@ -289,20 +290,105 @@
   margin: 0;
 }
 
-/* Mobile Adjustments */
+/* ———— Mobile: no pinned stage. The three layers become ordinary
+   stacked blocks (the GSAP timeline only runs from 900px up). ———— */
 @media (max-width: 899px) {
+  .about__spatial-stage {
+    height: auto;
+    overflow: visible;
+    perspective: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 7.5rem var(--gutter) 2rem;
+  }
+
+  .about__spatial-layer {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+  }
+
+  .about__mono-label {
+    margin-bottom: 1.25rem;
+  }
+
+  .about__massive-title {
+    font-size: clamp(2.2rem, 9.5vw, 3.4rem);
+  }
+
+  .about__cinematic-text {
+    font-size: clamp(1.6rem, 6.5vw, 2.6rem);
+  }
+
+  .about__mission-word {
+    color: #F5F7FA;
+  }
+
   .about__spatial-split-container {
     flex-direction: column;
-    overflow-y: auto;
-    justify-content: flex-start;
-    padding-top: 10vh;
+    align-items: stretch;
+    gap: 1.25rem;
   }
+
   .about__split-card {
+    opacity: 1;
+    max-width: none;
     height: auto;
-    width: 100%;
+    padding: 2rem 1.5rem;
   }
+
+  .about__split-title {
+    font-size: 1.6rem;
+  }
+
+  .about__split-text {
+    font-size: 1rem;
+  }
+
+  .about__terminal-journey {
+    padding: 5rem var(--gutter) 7rem;
+  }
+
+  .about__terminal-header {
+    margin-bottom: 4rem;
+  }
+
+  .about__terminal-title {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+  }
+
+  .about__terminal-note {
+    font-size: 1.05rem;
+  }
+
+  .about__terminal-floor {
+    gap: 2.5rem;
+    padding: 2rem 0;
+  }
+
+  .about__terminal-card-wrapper {
+    max-width: none;
+  }
+
+  .about__terminal-card {
+    padding: 1.75rem 1.5rem;
+  }
+
   .about__terminal-card-top {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .about__terminal-card-title {
+    font-size: 1.3rem;
+  }
+
+  .about__terminal-card-text {
+    font-size: 1rem;
   }
 }
