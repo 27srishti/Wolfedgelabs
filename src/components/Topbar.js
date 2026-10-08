@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { HashLink as Link } from 'react-router-hash-link';
 import { Dot } from "./Kit";
 import "./Topbar.css";
 
 const LINKS = [
-  ["Products", "#products"],
-  ["Infrastructure", "#infrastructure"],
-  ["Engineering", "#engineering"],
-  ["Canton", "#canton"],
+  ["Products", "/#products"],
+  ["Infrastructure", "/#infrastructure"],
+  ["Engineering", "/#engineering"],
+  ["About", "/about"],
 ];
 
 export default function Topbar() {
@@ -52,7 +53,7 @@ export default function Topbar() {
     <header
       className={`topbar ${scrolled ? "topbar--solid" : ""} ${onDark ? "topbar--on-dark" : ""} ${hidden ? "topbar--hidden" : ""}`}
     >
-      <a href="#hero" className="topbar__brand mono">
+      <Link to="/#hero" className="topbar__brand mono">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M3 4 L9 20 L12 11 L15 20 L21 4"
@@ -63,13 +64,13 @@ export default function Topbar() {
           />
         </svg>
         WolfEdge Labs
-      </a>
+      </Link>
 
       <nav className="topbar__nav" aria-label="Primary">
         {LINKS.map(([label, href]) => (
-          <a key={href} href={href} className="topbar__link">
+          <Link key={href} to={href} className="topbar__link">
             {label}
-          </a>
+          </Link>
         ))}
       </nav>
 
@@ -77,9 +78,9 @@ export default function Topbar() {
         <span className="topbar__status mono">
           <Dot /> 99.98% uptime
         </span>
-        <a href="#contact" className="topbar__cta mono">
+        <Link to="/#contact" className="topbar__cta mono">
           Contact
-        </a>
+        </Link>
       </div>
 
       <button
@@ -93,16 +94,16 @@ export default function Topbar() {
       </button>
 
       <div className={`topbar__sheet ${open ? "on" : ""}`}>
-        {[...LINKS, ["Contact", "#contact"]].map(([label, href], i) => (
-          <a
+        {[...LINKS, ["Contact", "/#contact"]].map(([label, href], i) => (
+          <Link
             key={href}
-            href={href}
+            to={href}
             onClick={() => setOpen(false)}
             style={{ transitionDelay: `${0.04 * i}s` }}
           >
             <span className="mono">0{i + 1}</span>
             {label}
-          </a>
+          </Link>
         ))}
       </div>
     </header>

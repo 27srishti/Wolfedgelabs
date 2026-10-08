@@ -1,0 +1,308 @@
+.about {
+  position: relative;
+  background: #07090B; /* Deep base */
+  color: #F5F7FA; 
+  padding: 0;
+  margin: 0;
+  overflow: clip; 
+}
+
+/* ———— Typography & Utility ———— */
+
+.about__mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #7F8994;
+  margin-bottom: 2rem;
+}
+
+.about__mono-label--center {
+  text-align: center;
+}
+
+.about__em {
+  color: #00E5FF; 
+  font-style: normal;
+}
+
+/* ———— 1. Massive Spatial Stage ———— */
+
+.about__spatial-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #07090B;
+  overflow: hidden;
+  perspective: 1500px; /* Crucial for 3D split effect */
+}
+
+.about__spatial-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+
+/* Layer 1: Hero */
+.about__massive-title {
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-align: center;
+  margin: 0;
+  color: #F5F7FA;
+}
+
+/* Layer 2: Mission */
+.about__mission-block {
+  opacity: 0; /* Hidden initially */
+  transform: scale(1.2) translateY(50px);
+}
+
+.about__cinematic-text {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0;
+}
+
+.about__mission-word {
+  color: #17212A; 
+  transition: color 0.1s ease;
+}
+
+/* Layer 3: Spatial Split */
+.about__spatial-split-container {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.about__split-card {
+  pointer-events: auto;
+  flex: 1;
+  max-width: 450px;
+  height: 450px;
+  background: rgba(11, 16, 21, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem;
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0; /* Hidden initially by GSAP */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.about__split-card:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.about__split-num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #00E5FF;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 229, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.about__split-title {
+  font-size: 2.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+  color: #F5F7FA;
+}
+
+.about__split-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #9AA6B2;
+  margin: 0;
+}
+
+/* ———— 2. Terminal Journey Pathway ———— */
+
+.about__terminal-journey {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10rem var(--gutter) 15rem;
+}
+
+.about__terminal-header {
+  margin-bottom: 8rem;
+  text-align: center;
+}
+
+.about__terminal-title {
+  font-size: clamp(3rem, 5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  color: #F5F7FA;
+}
+
+.about__terminal-note {
+  font-size: 1.25rem;
+  color: #7F8994;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.about__terminal-floor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  padding: 4rem 0;
+}
+
+/* Industrial thin SVG Beam */
+.about__beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about__beam-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06); 
+  stroke-width: 2;
+  stroke-dasharray: 4 8;
+  stroke-linecap: round;
+}
+
+.about__beam-glow {
+  fill: none;
+  stroke: #00E5FF; 
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.6));
+}
+
+/* Timeline Cards */
+.about__terminal-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  z-index: 1;
+}
+
+.about__terminal-card--left {
+  align-self: flex-start;
+}
+
+.about__terminal-card--right {
+  align-self: flex-end;
+}
+
+.about__terminal-card {
+  position: relative;
+  background: rgba(11, 16, 21, 0.6); 
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem;
+  padding: 3rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.about__terminal-card:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.about__terminal-card-top {
+  display: flex;
+  gap: 2rem;
+}
+
+.about__terminal-inset-num {
+  flex-shrink: 0;
+  width: 90px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #00E5FF;
+}
+
+.about__terminal-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.about__terminal-card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+  color: #F5F7FA;
+}
+
+.about__terminal-card-text {
+  font-size: 1.1rem;
+  color: #C4CBD3;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 899px) {
+  .about__spatial-split-container {
+    flex-direction: column;
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding-top: 10vh;
+  }
+  .about__split-card {
+    height: auto;
+    width: 100%;
+  }
+  .about__terminal-card-top {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}

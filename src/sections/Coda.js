@@ -1,20 +1,21 @@
+import { HashLink as Link } from 'react-router-hash-link';
 import { Lines } from "../components/Kit";
 import { useRiseGroup } from "../hooks/useInView";
 import "./Coda.css";
 
 const COLS = [
-  ["Products", [["Calden", "#products"], ["Cardiv", "#products"], ["Nexus", "#products"]]],
+  ["Products", [["Calden", "/#products"], ["Cardiv", "/#products"], ["Nexus", "/#products"]]],
   [
     "Services",
     [
-      ["Validators", "#infrastructure"],
-      ["RPC", "#infrastructure"],
-      ["Nodes", "#infrastructure"],
-      ["DevOps", "#engineering"],
-      ["Technical assessments", "#infrastructure"],
+      ["Validators", "/#infrastructure"],
+      ["RPC", "/#infrastructure"],
+      ["Nodes", "/#infrastructure"],
+      ["DevOps", "/#engineering"],
+      ["Technical assessments", "/#infrastructure"],
     ],
   ],
-  ["Company", [["Who we are", "#who"], ["Why Canton", "#canton"], ["Contact", "#contact"]]],
+  ["Company", [["About", "/about"], ["Contact", "/#contact"]]],
 ];
 
 export default function Coda() {
@@ -58,13 +59,15 @@ export default function Coda() {
               and Canton-native financial products.
             </p>
           </div>
-          {COLS.map(([title, links]) => (
+          {COLS.map(([title, items]) => (
             <nav key={title} aria-label={title}>
               <span className="mono coda__col-title">{title}</span>
-              <ul>
-                {links.map(([label, href]) => (
+              <ul className="coda__list">
+                {items.map(([label, href]) => (
                   <li key={label}>
-                    <a href={href}>{label}</a>
+                    <Link to={href} className="coda__link">
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
